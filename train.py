@@ -222,6 +222,10 @@ def build_insights(df):
                        for r in routes.itertuples()],
         "route_distance": {f"{o}-{d}": int(v) for (o, d), v in
                            df.groupby(["origin", "dest"])["distance"].median().items()},
+        # airlines that really flew each route (at least 5 sampled flights), so the API only
+        # suggests alternatives that exist on that route
+        "route_airlines": {f"{o}-{d}": sorted(g[g >= 5].index.get_level_values(-1).tolist()) for (o, d), g in
+                           df.groupby(["origin", "dest"])["airline"].value_counts().groupby(level=[0, 1])},
     }
 
 

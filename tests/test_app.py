@@ -132,3 +132,23 @@ def test_prediction_is_logged():
     predict()
     after = sum(1 for _ in open(log_path))
     assert after == before + 1
+
+
+# 10. Safer alternatives: every suggestion is safer than the original flight, airlines are only
+#     those that flew the route in the training data, and invalid input is still rejected
+def test_alternatives_are_safer_and_real():
+    from app import INSIGHTS
+
+    flight = {**VALID_FLIGHT, "airline": "F9", "origin": "ATL", "dest": "LAX", "distance": 1947, "dep_hour": 19}
+    body = client.post("/alternatives", json=flight).json()
+    assert body["options"], "a risky evening Frontier flight should have safer options"
+    route_airlines = INSIGHTS["route_airlines"]["ATL-LAX"]
+    for option in body["options"]:
+        assert option["delay_probability"] < body["current_probability"]
+        assert option["reduction"] >= 0.03
+        if option["kind"] == "airline":
+            assert option["flight"]["airline"] in route_airlines
+
+
+def test_alternatives_rejects_invalid_input():
+    assert client.post("/alternatives", json={**VALID_FLIGHT, "dep_hour": 30}).status_code == 422

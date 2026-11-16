@@ -11,6 +11,7 @@ import {
   MapPin,
   PlaneTakeoff,
   Ruler,
+  ShieldCheck,
   Sparkles,
 } from 'lucide-react'
 import PredictionMap from './PredictionMap'
@@ -25,6 +26,8 @@ import {
   type FlightInput,
   type OptionsResponse,
   type PredictionResult,
+  type AlternativeOption,
+  type AlternativesResponse,
   type Reason,
 } from '../lib/api'
 
@@ -80,6 +83,8 @@ export default function PredictionForm({ theme }: PredictionFormProps) {
   })
   const [result, setResult] = useState<PredictionResult | null>(null)
   const [explanation, setExplanation] = useState<ExplainResult | null>(null)
+  const [alternatives, setAlternatives] = useState<AlternativesResponse | null>(null)
+  const [findingAlternatives, setFindingAlternatives] = useState(false)
   const [loading, setLoading] = useState(false)
   const [explaining, setExplaining] = useState(false)
   const [error, setError] = useState('')
@@ -113,6 +118,7 @@ export default function PredictionForm({ theme }: PredictionFormProps) {
   const update = (name: keyof typeof form, value: string) => {
     setResult(null)
     setExplanation(null)
+    setAlternatives(null)
     setError('')
     setForm((prev) => {
       const next = { ...prev, [name]: name === 'dep_hour' ? Number(value) : value }
@@ -128,19 +134,41 @@ export default function PredictionForm({ theme }: PredictionFormProps) {
     })
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const runPrediction = async (input: FlightInput) => {
     setLoading(true)
     setError('')
     setResult(null)
     setExplanation(null)
+    setAlternatives(null)
     try {
-      setResult(await postJSON<PredictionResult>('/predict', payload))
+      setResult(await postJSON<PredictionResult>('/predict', input))
     } catch (err) {
       setError(`Prediction failed: ${(err as Error).message}`)
+      return
     } finally {
       setLoading(false)
     }
+    // safer options for the same trip, scored by the same model (after the main result is shown)
+    setFindingAlternatives(true)
+    try {
+      setAlternatives(await postJSON<AlternativesResponse>('/alternatives', input))
+    } catch {
+      setAlternatives(null)
+    } finally {
+      setFindingAlternatives(false)
+    }
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    await runPrediction(payload)
+  }
+
+  // "Use this": put the safer option into the form and forecast it
+  const applyOption = (option: AlternativeOption) => {
+    const { airline, origin, dest, flight_date, dep_hour } = option.flight
+    setForm({ airline, origin, dest, flight_date, dep_hour })
+    void runPrediction(option.flight)
   }
 
   const handleExplain = async () => {
@@ -439,6 +467,43 @@ export default function PredictionForm({ theme }: PredictionFormProps) {
                     </li>
                   ))}
                 </ul>
+              </div>
+
+              <div className="surface-panel p-5">
+                <h3 className="flex items-center gap-2 text-base font-semibold">
+                  <ShieldCheck className="h-4 w-4 text-emerald-500" /> Safer options for this trip
+                </h3>
+                {findingAlternatives && <p className="subtle-text mt-3 text-sm">Checking other times, airlines and dates...</p>}
+                {!findingAlternatives && alternatives && alternatives.options.length === 0 && (
+                  <p className="subtle-text mt-3 text-sm leading-6">
+                    No clearly safer time, airline or nearby date for this route: this flight is already one of
+                    the better choices.
+                  </p>
+                )}
+                {!findingAlternatives && alternatives && alternatives.options.length > 0 && (
+                  <ul className="mt-3 space-y-2">
+                    {alternatives.options.map((o) => (
+                      <li key={o.label} className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-gray-200 p-3 dark:border-white/10">
+                        <div className="flex items-start gap-3">
+                          <span className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: RISK_COLORS[o.risk_level] }} />
+                          <div>
+                            <p className="text-sm font-medium">{o.label}</p>
+                            <p className="subtle-text text-xs">
+                              {pct(o.delay_probability)} delay risk, {Math.round(o.reduction * 100)} points lower than your flight
+                            </p>
+                          </div>
+                        </div>
+                        <button type="button" onClick={() => applyOption(o)} className="secondary-button text-sm">
+                          Use this
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                <p className="subtle-text mt-3 text-xs leading-5">
+                  Scored by the same trained model. Airlines shown flew this route in 2024; check that the
+                  flight exists when you book.
+                </p>
               </div>
 
               <div className="surface-panel p-5">

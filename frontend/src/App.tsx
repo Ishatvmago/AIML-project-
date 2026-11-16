@@ -50,7 +50,7 @@ function buildHighlights(stats: StatsResponse | null) {
       label: 'Model ROC-AUC',
       value: stats ? stats.metrics.roc_auc.toFixed(2) : '...',
       detail: stats
-        ? `${ALGORITHM_NAMES[stats.algorithm] ?? stats.algorithm}, best of 9 runs tracked in MLflow.`
+        ? `${ALGORITHM_NAMES[stats.algorithm] ?? stats.algorithm}, best of 13 runs tracked in MLflow.`
         : 'Loading model metrics...',
       icon: Radar,
     },
@@ -61,9 +61,18 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard')
   const [theme, setTheme] = useState<Theme>(() => getPreferredTheme())
   const [stats, setStats] = useState<StatsResponse | null>(null)
+  const [apiState, setApiState] = useState<'loading' | 'online' | 'offline'>('loading')
 
   useEffect(() => {
-    getJSON<StatsResponse>('/stats').then(setStats).catch(() => setStats(null))
+    getJSON<StatsResponse>('/stats')
+      .then((s) => {
+        setStats(s)
+        setApiState('online')
+      })
+      .catch(() => {
+        setStats(null)
+        setApiState('offline')
+      })
   }, [])
 
   const highlights = buildHighlights(stats)
@@ -87,10 +96,13 @@ export default function App() {
     return () => mediaQuery.removeEventListener('change', handleSystemThemeChange)
   }, [])
 
-  const statusText = useMemo(
-    () => (theme === 'dark' ? 'Night operations layout enabled' : 'Day operations layout enabled'),
-    [theme],
-  )
+  // real status: whether the prediction API answered and which trained model it serves
+  const statusText = useMemo(() => {
+    if (apiState === 'loading') return 'Connecting to the prediction API...'
+    if (apiState === 'offline') return 'Prediction API not reachable'
+    return stats ? `${ALGORITHM_NAMES[stats.algorithm] ?? stats.algorithm} model online` : 'Model online'
+  }, [apiState, stats])
+  const statusDot = apiState === 'online' ? 'bg-emerald-400 shadow-[0_0_16px_rgba(74,222,128,0.8)]' : apiState === 'offline' ? 'bg-red-500' : 'bg-amber-400'
 
   return (
    <div className="min-h-screen bg-gray-100 dark:bg-gray-950 transition-all duration-300">
@@ -103,13 +115,13 @@ export default function App() {
                 <CloudSun className="h-6 w-6" />
               </div>
               <div>
-                <p className="eyebrow">Flight Intelligence Suite</p>
+                <p className="eyebrow">CSL236 MLOps Project</p>
                 <h1 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">
                   Flight Delay Predictor
                 </h1>
                 <p className="subtle-text mt-2 max-w-2xl text-sm sm:text-base">
-                  A decision-support interface for anticipating delay risk, monitoring operating
-                  conditions, and reviewing route performance.
+                  Predicts the chance that a US flight arrives 15+ minutes late, with a model trained
+                  on 120,000 real 2024 flights.
                 </p>
               </div>
             </div>
@@ -153,9 +165,9 @@ export default function App() {
   )}
 </button>
               <div className="surface-panel flex items-center gap-3 px-4 py-3">
-                <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_16px_rgba(74,222,128,0.8)]" />
+                <span className={`h-2.5 w-2.5 rounded-full ${statusDot}`} />
                 <div>
-                  <p className="text-sm font-semibold">System status</p>
+                  <p className="text-sm font-semibold">API status</p>
                   <p className="subtle-text text-xs">{statusText}</p>
                 </div>
               </div>
@@ -167,7 +179,7 @@ export default function App() {
           <div className="surface-card relative overflow-hidden p-6 sm:p-8 lg:p-10">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.16),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(245,158,11,0.16),transparent_30%)]" />
             <div className="relative">
-              <p className="eyebrow">Operations Overview</p>
+              <p className="eyebrow">Overview</p>
               <h2 className="mt-4 max-w-3xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
                 Know your flight's delay risk before you fly.
               </h2>
@@ -220,7 +232,7 @@ export default function App() {
               />
               <div className="absolute inset-x-0 bottom-0 z-20 p-6 sm:p-7">
                 <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/70">
-                  Aviation visual
+                  How it works
                 </p>
                 <p className="mt-2 max-w-sm text-2xl font-semibold leading-tight text-white">
                   Trained on real flight data. Tracked with MLflow. Explained by local generative AI.
@@ -257,8 +269,8 @@ export default function App() {
         <footer className="ui-border mt-auto border-t px-1 py-6 text-sm">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <p className="subtle-text">
-              Flight Delay Prediction System for operational forecasting, route oversight, and
-              performance review.
+              Predictions come from a Gradient Boosting model trained on US Bureau of Transportation
+              Statistics flight records (2024).
             </p>
             <p className="subtle-text">CSL236 end-term project · FastAPI + scikit-learn + MLflow + Ollama</p>
           </div>

@@ -15,11 +15,12 @@ Routes:
     POST /predict          delay probability + top reasons + rule-based tips
     POST /explain          plain-English explanation written by a local LLM (Ollama),
                            falling back to a template when no LLM is available
+    POST /alternatives     safer options for the same trip: another time, airline or date
 """
 
 import json
 import os
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 
 import joblib
 import pandas as pd
@@ -336,6 +337,69 @@ def explain(flight: FlightInput):
         except (requests.RequestException, KeyError, ValueError):
             pass
     return {"explanation": template_explanation(data, prob, reasons), "source": "template"}
+
+
+# ---------- safer alternatives ----------
+
+MIN_GAIN = 0.03  # only suggest an option that lowers the delay probability by 3 points or more
+ALT_HOURS = sorted(int(h) for h, s in INSIGHTS["by_hour"].items() if s["flights"] >= 100)
+
+
+def short_day(d: date) -> str:
+    return f"{DAY_NAMES[d.isoweekday()][:3]} {d.day} {MONTH_NAMES[d.month][:3]}"
+
+
+@app.post("/alternatives")
+def alternatives(flight: FlightInput):
+    """
+    Same trip, small changes: the trained model scores every variation in one batch and the
+    best one of each kind is returned if it is clearly safer. Airlines are only those that
+    actually flew this route in the training data; times and dates are not checked against
+    real timetables, so the UI says to confirm that the flight exists.
+    """
+    base = build_row(flight)
+    day = date.fromisoformat(base["flight_date"])
+    hour = base["dep_hour"]
+    airline = AIRLINE_NAMES.get(base["airline"], base["airline"])
+
+    candidates = []  # (kind, label, row)
+    for h in ALT_HOURS:
+        if h != hour:
+            kind = "time_near" if abs(h - hour) <= 3 else "time_any"
+            candidates.append((kind, f"Depart at {h:02d}:00 instead of {hour:02d}:00", dict(base, dep_hour=h)))
+    for code in INSIGHTS.get("route_airlines", {}).get(f"{base['origin']}-{base['dest']}", []):
+        if code != base["airline"]:
+            candidates.append(("airline", f"Fly {AIRLINE_NAMES.get(code, code)} instead of {airline}", dict(base, airline=code)))
+    for shift in (-3, -2, -1, 1, 2, 3):
+        d = day + timedelta(days=shift)
+        if date(2024, 1, 1) <= d <= date(2030, 12, 31):
+            candidates.append(("date", f"Fly on {short_day(d)} instead of {short_day(day)}",
+                               {**base, "flight_date": d.isoformat(), **date_features(d)}))
+
+    current = float(predict_proba([base])[0])
+    probs = predict_proba([row for _, _, row in candidates]) if candidates else []
+    best = {}
+    for (kind, label, row), p in zip(candidates, probs):
+        if kind not in best or p < best[kind][2]:
+            best[kind] = (label, row, float(p))
+    # the safest time of the whole day is only worth showing if it beats the nearby time clearly
+    if "time_any" in best and "time_near" in best and best["time_near"][2] - best["time_any"][2] < MIN_GAIN:
+        del best["time_any"]
+
+    options = [
+        {
+            "kind": "time" if kind.startswith("time") else kind,
+            "label": label,
+            "delay_probability": round(p, 4),
+            "risk_level": risk_level(p),
+            "reduction": round(current - p, 4),
+            "flight": {k: row[k] for k in ("flight_date", "dep_hour", "distance", "airline", "origin", "dest")},
+        }
+        for kind, (label, row, p) in best.items()
+        if current - p >= MIN_GAIN
+    ]
+    options.sort(key=lambda o: o["delay_probability"])
+    return {"current_probability": round(current, 4), "options": options}
 
 
 @app.get("/")

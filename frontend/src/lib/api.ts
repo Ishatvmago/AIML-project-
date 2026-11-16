@@ -65,6 +65,20 @@ export interface PredictionResult {
   }
 }
 
+export interface AlternativeOption {
+  kind: 'time' | 'airline' | 'date'
+  label: string
+  delay_probability: number
+  risk_level: 'Low' | 'Medium' | 'High'
+  reduction: number
+  flight: FlightInput
+}
+
+export interface AlternativesResponse {
+  current_probability: number
+  options: AlternativeOption[]
+}
+
 export interface ExplainResult {
   explanation: string
   source: 'llm' | 'template'

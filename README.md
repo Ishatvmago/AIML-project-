@@ -11,8 +11,8 @@ CSL236 end-term project · Ishatv Mago (24csu082)
 | 1. Environment | Python 3.11 venv, pinned dependencies | `requirements.txt`, `requirements-serve.txt` |
 | 2. Experiment tracking | MLflow (SQLite), 13 runs, 6 algorithms, 2 feature sets, tuning, 5-fold CV | `train.py`, `mlflow.db`, `compare_models.py` |
 | 3. Model artifact | MLflow Model Registry (`flight-delay-model`, alias `production`); pipeline saved once, loaded once at API startup | `model/model.joblib`, `model/metadata.json` |
-| 4. API + UI | FastAPI `/health`, `/predict`, `/explain`; React UI served at `/` | `app.py`, `static/`, `frontend/` |
-| 5. Tests | 20 pytest cases: health, UI, domain logic, date features, 422 boundaries, fallback, logging | `tests/test_app.py` |
+| 4. API + UI | FastAPI `/health`, `/predict`, `/explain`, `/alternatives`; React UI served at `/` | `app.py`, `static/`, `frontend/` |
+| 5. Tests | 22 pytest cases: health, UI, domain logic, date features, 422 boundaries, fallback, logging | `tests/test_app.py` |
 | 6. Container | `python:3.11-slim`, serve-only requirements, health check | `Dockerfile` |
 | 7. CI | GitHub Actions: install → train baseline → pytest → Docker build + smoke test | `.github/workflows/ci.yml` |
 | 8. Deploy + monitoring | Render free tier, every prediction logged, drift check | `logs/predictions.jsonl`, `drift_check.py` |
@@ -139,6 +139,12 @@ line with published schedule-only delay models.
 **Explanations:** for each prediction the API replaces one input at a time with its most typical
 training value and measures how much the probability changes (occlusion / perturbation importance).
 
+**Safer alternatives:** `/alternatives` takes the same flight and asks the model about small
+changes: a departure time within 3 hours, the safest time of the day, another airline that really
+flew this route in 2024, and dates up to 3 days earlier or later. All variations are scored in one
+batch and the best one of each kind is returned if it lowers the delay probability by at least 3
+points. In the UI, "Use this" fills the form with that option and forecasts it.
+
 **Generative AI:** `/explain` sends only the model's facts (probability, reasons, tips) to Llama 3.2
 running locally through Ollama. The LLM never makes the prediction; it only explains it. If Ollama is
 not running (CI, Docker, cloud) the API returns a template explanation instead, so nothing breaks.
@@ -194,10 +200,11 @@ npm run build     # writes the production UI into ../static
 pytest -v
 ```
 
-20 tests: health check, UI loads, prediction shape, two domain-logic checks (evening riskier than
+22 tests: health check, UI loads, prediction shape, two domain-logic checks (evening riskier than
 early morning; July riskier than October), date features (2026-11-25 is a Wednesday, 1 day from
 Thanksgiving), nine invalid-input 422 cases, same-airport 422, missing
-field 422, lower-case codes accepted, LLM template fallback, and prediction logging.
+field 422, lower-case codes accepted, LLM template fallback, prediction logging, and safer alternatives (each suggestion is safer than
+the original, airlines only from the route's real carriers, invalid input rejected).
 
 ## 5. Docker
 

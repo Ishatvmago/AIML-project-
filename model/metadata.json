@@ -1330,6 +1330,1985 @@
       "SLC-PHX": 507,
       "SLC-SEA": 689,
       "SLC-SFO": 599
+    },
+    "route_airlines": {
+      "ATL-BOS": [
+        "B6",
+        "DL",
+        "F9",
+        "NK"
+      ],
+      "ATL-CLT": [
+        "AA",
+        "DL",
+        "MQ",
+        "OH"
+      ],
+      "ATL-DCA": [
+        "AA",
+        "DL",
+        "OH",
+        "WN",
+        "YX"
+      ],
+      "ATL-DEN": [
+        "DL",
+        "F9",
+        "UA",
+        "WN"
+      ],
+      "ATL-DFW": [
+        "AA",
+        "DL",
+        "F9",
+        "MQ",
+        "NK"
+      ],
+      "ATL-DTW": [
+        "DL",
+        "F9",
+        "NK"
+      ],
+      "ATL-EWR": [
+        "DL",
+        "F9",
+        "NK",
+        "UA",
+        "YX"
+      ],
+      "ATL-IAH": [
+        "DL",
+        "F9",
+        "NK",
+        "OO",
+        "UA"
+      ],
+      "ATL-JFK": [
+        "B6",
+        "DL",
+        "F9"
+      ],
+      "ATL-LAS": [
+        "DL",
+        "F9",
+        "NK",
+        "WN"
+      ],
+      "ATL-LAX": [
+        "AA",
+        "DL",
+        "F9",
+        "NK"
+      ],
+      "ATL-LGA": [
+        "B6",
+        "DL",
+        "F9",
+        "NK",
+        "WN"
+      ],
+      "ATL-MCO": [
+        "DL",
+        "F9",
+        "NK",
+        "WN"
+      ],
+      "ATL-MSP": [
+        "DL",
+        "F9",
+        "NK"
+      ],
+      "ATL-ORD": [
+        "AA",
+        "DL",
+        "F9",
+        "MQ",
+        "NK",
+        "UA",
+        "YX"
+      ],
+      "ATL-PHX": [
+        "AA",
+        "DL",
+        "F9",
+        "WN"
+      ],
+      "ATL-SEA": [
+        "AS",
+        "DL"
+      ],
+      "ATL-SFO": [
+        "DL",
+        "F9",
+        "UA"
+      ],
+      "ATL-SLC": [
+        "DL"
+      ],
+      "BOS-ATL": [
+        "B6",
+        "DL",
+        "F9",
+        "NK"
+      ],
+      "BOS-CLT": [
+        "AA",
+        "B6",
+        "F9",
+        "NK",
+        "YX"
+      ],
+      "BOS-DCA": [
+        "AA",
+        "B6",
+        "DL",
+        "YX"
+      ],
+      "BOS-DEN": [
+        "B6",
+        "DL",
+        "UA",
+        "WN"
+      ],
+      "BOS-DFW": [
+        "AA",
+        "B6",
+        "DL",
+        "F9",
+        "NK"
+      ],
+      "BOS-DTW": [
+        "B6",
+        "DL",
+        "NK"
+      ],
+      "BOS-EWR": [
+        "NK",
+        "UA",
+        "YX"
+      ],
+      "BOS-IAH": [
+        "B6",
+        "NK",
+        "UA"
+      ],
+      "BOS-JFK": [
+        "B6",
+        "DL",
+        "YX"
+      ],
+      "BOS-LAS": [
+        "B6",
+        "DL"
+      ],
+      "BOS-LAX": [
+        "AA",
+        "B6",
+        "DL",
+        "UA"
+      ],
+      "BOS-LGA": [
+        "AA",
+        "B6",
+        "DL",
+        "YX"
+      ],
+      "BOS-MCO": [
+        "B6",
+        "DL",
+        "F9",
+        "NK"
+      ],
+      "BOS-MSP": [
+        "B6",
+        "DL"
+      ],
+      "BOS-ORD": [
+        "AA",
+        "B6",
+        "DL",
+        "MQ",
+        "NK",
+        "UA",
+        "YX"
+      ],
+      "BOS-PHX": [
+        "AA",
+        "B6",
+        "DL"
+      ],
+      "BOS-SEA": [
+        "AS",
+        "B6",
+        "DL"
+      ],
+      "BOS-SFO": [
+        "AS",
+        "B6",
+        "DL",
+        "UA"
+      ],
+      "BOS-SLC": [
+        "B6",
+        "DL"
+      ],
+      "CLT-ATL": [
+        "9E",
+        "AA",
+        "DL",
+        "MQ",
+        "OH"
+      ],
+      "CLT-BOS": [
+        "AA",
+        "B6",
+        "F9",
+        "NK",
+        "YX"
+      ],
+      "CLT-DCA": [
+        "AA",
+        "OH"
+      ],
+      "CLT-DEN": [
+        "AA",
+        "F9",
+        "UA",
+        "WN"
+      ],
+      "CLT-DFW": [
+        "AA",
+        "F9",
+        "NK"
+      ],
+      "CLT-DTW": [
+        "9E",
+        "AA",
+        "DL",
+        "OO"
+      ],
+      "CLT-EWR": [
+        "AA",
+        "NK",
+        "UA",
+        "YX"
+      ],
+      "CLT-IAH": [
+        "AA",
+        "F9",
+        "NK",
+        "UA"
+      ],
+      "CLT-JFK": [
+        "9E",
+        "AA",
+        "YX"
+      ],
+      "CLT-LAS": [
+        "AA",
+        "F9",
+        "NK"
+      ],
+      "CLT-LAX": [
+        "AA",
+        "NK"
+      ],
+      "CLT-LGA": [
+        "9E",
+        "AA",
+        "F9",
+        "NK",
+        "YX"
+      ],
+      "CLT-MCO": [
+        "AA",
+        "F9",
+        "NK"
+      ],
+      "CLT-MSP": [
+        "AA",
+        "DL"
+      ],
+      "CLT-ORD": [
+        "AA",
+        "F9",
+        "NK",
+        "UA"
+      ],
+      "CLT-PHX": [
+        "AA"
+      ],
+      "CLT-SEA": [
+        "AA"
+      ],
+      "CLT-SFO": [
+        "AA"
+      ],
+      "CLT-SLC": [
+        "AA",
+        "DL"
+      ],
+      "DCA-ATL": [
+        "AA",
+        "DL",
+        "OH",
+        "WN",
+        "YX"
+      ],
+      "DCA-BOS": [
+        "AA",
+        "B6",
+        "DL",
+        "YX"
+      ],
+      "DCA-CLT": [
+        "AA",
+        "OH"
+      ],
+      "DCA-DEN": [
+        "F9",
+        "UA"
+      ],
+      "DCA-DFW": [
+        "AA"
+      ],
+      "DCA-DTW": [
+        "9E",
+        "DL",
+        "OH",
+        "YX"
+      ],
+      "DCA-EWR": [],
+      "DCA-IAH": [
+        "OO",
+        "UA"
+      ],
+      "DCA-JFK": [
+        "9E",
+        "YX"
+      ],
+      "DCA-LAS": [
+        "AA"
+      ],
+      "DCA-LAX": [
+        "AA",
+        "AS",
+        "DL"
+      ],
+      "DCA-LGA": [
+        "AA",
+        "YX"
+      ],
+      "DCA-MCO": [
+        "AA",
+        "B6",
+        "DL",
+        "WN"
+      ],
+      "DCA-MSP": [
+        "DL",
+        "OH",
+        "YX"
+      ],
+      "DCA-ORD": [
+        "AA",
+        "OO",
+        "UA",
+        "YX"
+      ],
+      "DCA-PHX": [
+        "AA"
+      ],
+      "DCA-SEA": [
+        "AS"
+      ],
+      "DCA-SFO": [
+        "AS",
+        "UA"
+      ],
+      "DCA-SLC": [
+        "DL"
+      ],
+      "DEN-ATL": [
+        "DL",
+        "F9",
+        "UA",
+        "WN"
+      ],
+      "DEN-BOS": [
+        "B6",
+        "DL",
+        "UA",
+        "WN"
+      ],
+      "DEN-CLT": [
+        "AA",
+        "F9",
+        "UA",
+        "WN"
+      ],
+      "DEN-DCA": [
+        "F9",
+        "UA"
+      ],
+      "DEN-DFW": [
+        "AA",
+        "F9",
+        "MQ",
+        "UA"
+      ],
+      "DEN-DTW": [
+        "DL",
+        "F9",
+        "UA",
+        "WN"
+      ],
+      "DEN-EWR": [
+        "UA"
+      ],
+      "DEN-IAH": [
+        "F9",
+        "UA",
+        "WN"
+      ],
+      "DEN-JFK": [
+        "B6",
+        "DL"
+      ],
+      "DEN-LAS": [
+        "F9",
+        "UA",
+        "WN"
+      ],
+      "DEN-LAX": [
+        "DL",
+        "F9",
+        "OO",
+        "UA",
+        "WN"
+      ],
+      "DEN-LGA": [
+        "B6",
+        "DL",
+        "F9",
+        "UA",
+        "WN"
+      ],
+      "DEN-MCO": [
+        "F9",
+        "UA",
+        "WN"
+      ],
+      "DEN-MSP": [
+        "DL",
+        "F9",
+        "UA",
+        "WN"
+      ],
+      "DEN-ORD": [
+        "AA",
+        "F9",
+        "UA",
+        "WN"
+      ],
+      "DEN-PHX": [
+        "AA",
+        "F9",
+        "MQ",
+        "OO",
+        "UA",
+        "WN"
+      ],
+      "DEN-SEA": [
+        "AS",
+        "DL",
+        "F9",
+        "OO",
+        "UA",
+        "WN"
+      ],
+      "DEN-SFO": [
+        "F9",
+        "UA",
+        "WN"
+      ],
+      "DEN-SLC": [
+        "DL",
+        "F9",
+        "OO",
+        "UA",
+        "WN"
+      ],
+      "DFW-ATL": [
+        "AA",
+        "DL",
+        "F9",
+        "MQ",
+        "NK"
+      ],
+      "DFW-BOS": [
+        "AA",
+        "B6",
+        "DL",
+        "NK"
+      ],
+      "DFW-CLT": [
+        "AA",
+        "F9",
+        "NK"
+      ],
+      "DFW-DCA": [
+        "AA"
+      ],
+      "DFW-DEN": [
+        "AA",
+        "F9",
+        "MQ",
+        "UA"
+      ],
+      "DFW-DTW": [
+        "AA",
+        "DL",
+        "F9",
+        "NK"
+      ],
+      "DFW-EWR": [
+        "AA",
+        "NK",
+        "UA"
+      ],
+      "DFW-IAH": [
+        "AA",
+        "F9",
+        "MQ",
+        "NK",
+        "UA"
+      ],
+      "DFW-JFK": [
+        "AA",
+        "DL"
+      ],
+      "DFW-LAS": [
+        "AA",
+        "F9",
+        "NK"
+      ],
+      "DFW-LAX": [
+        "AA",
+        "DL",
+        "F9",
+        "NK"
+      ],
+      "DFW-LGA": [
+        "AA",
+        "DL",
+        "F9",
+        "NK"
+      ],
+      "DFW-MCO": [
+        "AA",
+        "F9",
+        "NK"
+      ],
+      "DFW-MSP": [
+        "AA",
+        "DL",
+        "F9"
+      ],
+      "DFW-ORD": [
+        "AA",
+        "F9",
+        "MQ",
+        "NK",
+        "UA"
+      ],
+      "DFW-PHX": [
+        "AA",
+        "F9",
+        "NK"
+      ],
+      "DFW-SEA": [
+        "AA",
+        "AS",
+        "DL",
+        "F9"
+      ],
+      "DFW-SFO": [
+        "AA",
+        "F9",
+        "UA"
+      ],
+      "DFW-SLC": [
+        "AA",
+        "DL",
+        "F9"
+      ],
+      "DTW-ATL": [
+        "DL",
+        "F9",
+        "NK"
+      ],
+      "DTW-BOS": [
+        "B6",
+        "DL",
+        "NK"
+      ],
+      "DTW-CLT": [
+        "9E",
+        "AA",
+        "DL",
+        "OO"
+      ],
+      "DTW-DCA": [
+        "9E",
+        "DL",
+        "OH",
+        "YX"
+      ],
+      "DTW-DEN": [
+        "DL",
+        "F9",
+        "UA",
+        "WN"
+      ],
+      "DTW-DFW": [
+        "AA",
+        "DL",
+        "F9",
+        "NK"
+      ],
+      "DTW-EWR": [
+        "DL",
+        "NK",
+        "UA",
+        "YX"
+      ],
+      "DTW-IAH": [
+        "DL",
+        "NK",
+        "UA"
+      ],
+      "DTW-JFK": [
+        "9E",
+        "B6",
+        "DL",
+        "YX"
+      ],
+      "DTW-LAS": [
+        "DL",
+        "F9",
+        "NK",
+        "WN"
+      ],
+      "DTW-LAX": [
+        "DL",
+        "NK"
+      ],
+      "DTW-LGA": [
+        "AA",
+        "DL",
+        "NK",
+        "YX"
+      ],
+      "DTW-MCO": [
+        "DL",
+        "F9",
+        "NK",
+        "WN"
+      ],
+      "DTW-MSP": [
+        "DL",
+        "NK"
+      ],
+      "DTW-ORD": [
+        "AA",
+        "DL",
+        "MQ",
+        "NK",
+        "OO",
+        "UA",
+        "YX"
+      ],
+      "DTW-PHX": [
+        "AA",
+        "DL",
+        "F9",
+        "WN"
+      ],
+      "DTW-SEA": [
+        "AS",
+        "DL"
+      ],
+      "DTW-SFO": [
+        "DL",
+        "UA"
+      ],
+      "DTW-SLC": [
+        "DL"
+      ],
+      "EWR-ATL": [
+        "DL",
+        "F9",
+        "NK",
+        "UA",
+        "YX"
+      ],
+      "EWR-BOS": [
+        "NK",
+        "UA",
+        "YX"
+      ],
+      "EWR-CLT": [
+        "AA",
+        "NK",
+        "UA",
+        "YX"
+      ],
+      "EWR-DCA": [
+        "YX"
+      ],
+      "EWR-DEN": [
+        "UA"
+      ],
+      "EWR-DFW": [
+        "AA",
+        "NK",
+        "UA"
+      ],
+      "EWR-DTW": [
+        "DL",
+        "NK",
+        "UA",
+        "YX"
+      ],
+      "EWR-IAH": [
+        "NK",
+        "UA"
+      ],
+      "EWR-LAS": [
+        "NK",
+        "UA"
+      ],
+      "EWR-LAX": [
+        "AS",
+        "B6",
+        "NK",
+        "UA"
+      ],
+      "EWR-MCO": [
+        "B6",
+        "NK",
+        "UA"
+      ],
+      "EWR-MSP": [
+        "DL",
+        "UA",
+        "YX"
+      ],
+      "EWR-ORD": [
+        "AA",
+        "MQ",
+        "NK",
+        "UA"
+      ],
+      "EWR-PHX": [
+        "AA",
+        "NK",
+        "UA"
+      ],
+      "EWR-SEA": [
+        "AS",
+        "UA"
+      ],
+      "EWR-SFO": [
+        "AS",
+        "UA"
+      ],
+      "EWR-SLC": [
+        "DL",
+        "UA"
+      ],
+      "IAH-ATL": [
+        "DL",
+        "F9",
+        "NK",
+        "OO",
+        "UA"
+      ],
+      "IAH-BOS": [
+        "B6",
+        "NK",
+        "UA"
+      ],
+      "IAH-CLT": [
+        "AA",
+        "F9",
+        "NK",
+        "UA"
+      ],
+      "IAH-DCA": [
+        "OO",
+        "UA"
+      ],
+      "IAH-DEN": [
+        "F9",
+        "UA",
+        "WN"
+      ],
+      "IAH-DFW": [
+        "AA",
+        "F9",
+        "MQ",
+        "NK",
+        "UA"
+      ],
+      "IAH-DTW": [
+        "DL",
+        "NK",
+        "UA"
+      ],
+      "IAH-EWR": [
+        "NK",
+        "UA"
+      ],
+      "IAH-JFK": [
+        "B6"
+      ],
+      "IAH-LAS": [
+        "F9",
+        "NK",
+        "UA",
+        "WN"
+      ],
+      "IAH-LAX": [
+        "DL",
+        "NK",
+        "OO",
+        "UA"
+      ],
+      "IAH-LGA": [
+        "DL",
+        "NK",
+        "OO",
+        "UA"
+      ],
+      "IAH-MCO": [
+        "F9",
+        "NK",
+        "UA",
+        "WN"
+      ],
+      "IAH-MSP": [
+        "DL",
+        "UA"
+      ],
+      "IAH-ORD": [
+        "AA",
+        "F9",
+        "MQ",
+        "NK",
+        "UA"
+      ],
+      "IAH-PHX": [
+        "AA",
+        "F9",
+        "MQ",
+        "OO",
+        "UA"
+      ],
+      "IAH-SEA": [
+        "AS",
+        "UA"
+      ],
+      "IAH-SFO": [
+        "UA"
+      ],
+      "IAH-SLC": [
+        "DL",
+        "OO",
+        "UA"
+      ],
+      "JFK-ATL": [
+        "B6",
+        "DL",
+        "F9"
+      ],
+      "JFK-BOS": [
+        "B6",
+        "DL",
+        "YX"
+      ],
+      "JFK-CLT": [
+        "9E",
+        "AA",
+        "YX"
+      ],
+      "JFK-DCA": [
+        "YX"
+      ],
+      "JFK-DEN": [
+        "B6",
+        "DL"
+      ],
+      "JFK-DFW": [
+        "AA",
+        "DL"
+      ],
+      "JFK-DTW": [
+        "9E",
+        "B6",
+        "DL",
+        "YX"
+      ],
+      "JFK-IAH": [
+        "B6"
+      ],
+      "JFK-LAS": [
+        "AA",
+        "B6",
+        "DL",
+        "F9"
+      ],
+      "JFK-LAX": [
+        "AA",
+        "B6",
+        "DL"
+      ],
+      "JFK-MCO": [
+        "B6",
+        "DL",
+        "F9"
+      ],
+      "JFK-MSP": [
+        "9E",
+        "DL",
+        "OO"
+      ],
+      "JFK-ORD": [
+        "9E",
+        "AA",
+        "B6",
+        "OO",
+        "YX"
+      ],
+      "JFK-PHX": [
+        "AA",
+        "B6",
+        "DL"
+      ],
+      "JFK-SEA": [
+        "AS",
+        "B6",
+        "DL"
+      ],
+      "JFK-SFO": [
+        "AA",
+        "AS",
+        "B6",
+        "DL"
+      ],
+      "JFK-SLC": [
+        "B6",
+        "DL"
+      ],
+      "LAS-ATL": [
+        "DL",
+        "F9",
+        "NK",
+        "WN"
+      ],
+      "LAS-BOS": [
+        "B6",
+        "DL"
+      ],
+      "LAS-CLT": [
+        "AA",
+        "NK"
+      ],
+      "LAS-DCA": [
+        "AA"
+      ],
+      "LAS-DEN": [
+        "F9",
+        "UA",
+        "WN"
+      ],
+      "LAS-DFW": [
+        "AA",
+        "F9",
+        "NK"
+      ],
+      "LAS-DTW": [
+        "DL",
+        "F9",
+        "NK"
+      ],
+      "LAS-EWR": [
+        "NK",
+        "UA"
+      ],
+      "LAS-IAH": [
+        "F9",
+        "NK",
+        "UA",
+        "WN"
+      ],
+      "LAS-JFK": [
+        "AA",
+        "B6",
+        "DL",
+        "F9"
+      ],
+      "LAS-LAX": [
+        "AA",
+        "AS",
+        "B6",
+        "DL",
+        "F9",
+        "NK",
+        "OO",
+        "UA",
+        "WN"
+      ],
+      "LAS-LGA": [],
+      "LAS-MCO": [
+        "F9",
+        "NK",
+        "WN"
+      ],
+      "LAS-MSP": [
+        "DL",
+        "NK",
+        "WN"
+      ],
+      "LAS-ORD": [
+        "AA",
+        "F9",
+        "NK",
+        "UA",
+        "WN"
+      ],
+      "LAS-PHX": [
+        "AA",
+        "F9",
+        "NK",
+        "WN"
+      ],
+      "LAS-SEA": [
+        "AS",
+        "DL",
+        "F9",
+        "NK",
+        "WN"
+      ],
+      "LAS-SFO": [
+        "AS",
+        "F9",
+        "OO",
+        "UA",
+        "WN"
+      ],
+      "LAS-SLC": [
+        "DL",
+        "F9",
+        "NK",
+        "WN"
+      ],
+      "LAX-ATL": [
+        "AA",
+        "DL",
+        "F9",
+        "NK"
+      ],
+      "LAX-BOS": [
+        "AA",
+        "B6",
+        "DL",
+        "UA"
+      ],
+      "LAX-CLT": [
+        "AA",
+        "NK"
+      ],
+      "LAX-DCA": [
+        "AA",
+        "AS",
+        "DL"
+      ],
+      "LAX-DEN": [
+        "DL",
+        "F9",
+        "OO",
+        "UA",
+        "WN"
+      ],
+      "LAX-DFW": [
+        "AA",
+        "DL",
+        "F9",
+        "NK"
+      ],
+      "LAX-DTW": [
+        "DL",
+        "NK"
+      ],
+      "LAX-EWR": [
+        "AS",
+        "B6",
+        "NK",
+        "UA"
+      ],
+      "LAX-IAH": [
+        "DL",
+        "NK",
+        "OO",
+        "UA"
+      ],
+      "LAX-JFK": [
+        "AA",
+        "B6",
+        "DL"
+      ],
+      "LAX-LAS": [
+        "AA",
+        "AS",
+        "B6",
+        "DL",
+        "F9",
+        "NK",
+        "OO",
+        "UA",
+        "WN"
+      ],
+      "LAX-MCO": [
+        "AA",
+        "B6",
+        "DL",
+        "UA"
+      ],
+      "LAX-MSP": [
+        "DL"
+      ],
+      "LAX-ORD": [
+        "AA",
+        "NK",
+        "UA"
+      ],
+      "LAX-PHX": [
+        "AA",
+        "F9",
+        "MQ",
+        "OO",
+        "UA",
+        "WN"
+      ],
+      "LAX-SEA": [
+        "AS",
+        "DL",
+        "NK",
+        "OO",
+        "UA"
+      ],
+      "LAX-SFO": [
+        "AA",
+        "AS",
+        "B6",
+        "DL",
+        "F9",
+        "OO",
+        "UA",
+        "WN"
+      ],
+      "LAX-SLC": [
+        "B6",
+        "DL",
+        "NK",
+        "OO",
+        "WN"
+      ],
+      "LGA-ATL": [
+        "B6",
+        "DL",
+        "F9",
+        "NK",
+        "WN"
+      ],
+      "LGA-BOS": [
+        "AA",
+        "B6",
+        "DL",
+        "YX"
+      ],
+      "LGA-CLT": [
+        "9E",
+        "AA",
+        "F9",
+        "NK",
+        "YX"
+      ],
+      "LGA-DCA": [
+        "AA",
+        "YX"
+      ],
+      "LGA-DEN": [
+        "B6",
+        "DL",
+        "F9",
+        "UA",
+        "WN"
+      ],
+      "LGA-DFW": [
+        "AA",
+        "DL",
+        "F9",
+        "NK"
+      ],
+      "LGA-DTW": [
+        "AA",
+        "DL",
+        "NK",
+        "YX"
+      ],
+      "LGA-IAH": [
+        "DL",
+        "NK",
+        "OO",
+        "UA"
+      ],
+      "LGA-LAX": [],
+      "LGA-MCO": [
+        "AA",
+        "B6",
+        "DL",
+        "F9",
+        "NK"
+      ],
+      "LGA-MSP": [
+        "DL",
+        "YX"
+      ],
+      "LGA-ORD": [
+        "AA",
+        "DL",
+        "NK",
+        "OO",
+        "UA",
+        "YX"
+      ],
+      "LGA-SLC": [],
+      "MCO-ATL": [
+        "DL",
+        "F9",
+        "NK",
+        "WN"
+      ],
+      "MCO-BOS": [
+        "B6",
+        "DL",
+        "F9",
+        "NK"
+      ],
+      "MCO-CLT": [
+        "AA",
+        "F9",
+        "NK"
+      ],
+      "MCO-DCA": [
+        "AA",
+        "B6",
+        "DL",
+        "WN"
+      ],
+      "MCO-DEN": [
+        "F9",
+        "UA",
+        "WN"
+      ],
+      "MCO-DFW": [
+        "AA",
+        "F9",
+        "NK"
+      ],
+      "MCO-DTW": [
+        "DL",
+        "F9",
+        "NK"
+      ],
+      "MCO-EWR": [
+        "B6",
+        "NK",
+        "UA"
+      ],
+      "MCO-IAH": [
+        "F9",
+        "NK",
+        "UA",
+        "WN"
+      ],
+      "MCO-JFK": [
+        "B6",
+        "DL",
+        "F9"
+      ],
+      "MCO-LAS": [
+        "F9",
+        "NK",
+        "WN"
+      ],
+      "MCO-LAX": [
+        "AA",
+        "B6",
+        "DL",
+        "UA"
+      ],
+      "MCO-LGA": [
+        "AA",
+        "B6",
+        "DL",
+        "F9",
+        "NK"
+      ],
+      "MCO-MSP": [
+        "DL",
+        "F9",
+        "WN"
+      ],
+      "MCO-ORD": [
+        "AA",
+        "F9",
+        "NK",
+        "UA",
+        "WN"
+      ],
+      "MCO-PHX": [
+        "AA",
+        "F9",
+        "WN"
+      ],
+      "MCO-SEA": [
+        "AS",
+        "DL"
+      ],
+      "MCO-SFO": [
+        "AS",
+        "UA"
+      ],
+      "MCO-SLC": [
+        "B6",
+        "DL",
+        "NK"
+      ],
+      "MSP-ATL": [
+        "DL",
+        "F9",
+        "NK"
+      ],
+      "MSP-BOS": [
+        "B6",
+        "DL"
+      ],
+      "MSP-CLT": [
+        "AA",
+        "DL"
+      ],
+      "MSP-DCA": [
+        "DL",
+        "OH",
+        "YX"
+      ],
+      "MSP-DEN": [
+        "DL",
+        "F9",
+        "UA",
+        "WN"
+      ],
+      "MSP-DFW": [
+        "AA",
+        "DL",
+        "F9",
+        "MQ"
+      ],
+      "MSP-DTW": [
+        "DL",
+        "NK"
+      ],
+      "MSP-EWR": [
+        "DL",
+        "UA",
+        "YX"
+      ],
+      "MSP-IAH": [
+        "DL",
+        "OO",
+        "UA"
+      ],
+      "MSP-JFK": [
+        "9E",
+        "DL"
+      ],
+      "MSP-LAS": [
+        "DL",
+        "NK",
+        "WN"
+      ],
+      "MSP-LAX": [
+        "DL"
+      ],
+      "MSP-LGA": [
+        "DL",
+        "YX"
+      ],
+      "MSP-MCO": [
+        "DL",
+        "F9",
+        "WN"
+      ],
+      "MSP-ORD": [
+        "AA",
+        "DL",
+        "MQ",
+        "OO",
+        "UA",
+        "YX"
+      ],
+      "MSP-PHX": [
+        "AA",
+        "DL",
+        "F9",
+        "WN"
+      ],
+      "MSP-SEA": [
+        "AS",
+        "DL"
+      ],
+      "MSP-SFO": [
+        "DL",
+        "OO",
+        "UA"
+      ],
+      "MSP-SLC": [
+        "DL"
+      ],
+      "ORD-ATL": [
+        "AA",
+        "DL",
+        "F9",
+        "MQ",
+        "NK",
+        "UA",
+        "YX"
+      ],
+      "ORD-BOS": [
+        "AA",
+        "B6",
+        "DL",
+        "MQ",
+        "NK",
+        "UA",
+        "YX"
+      ],
+      "ORD-CLT": [
+        "AA",
+        "F9",
+        "NK",
+        "UA"
+      ],
+      "ORD-DCA": [
+        "AA",
+        "OO",
+        "UA",
+        "YX"
+      ],
+      "ORD-DEN": [
+        "AA",
+        "F9",
+        "UA",
+        "WN"
+      ],
+      "ORD-DFW": [
+        "AA",
+        "F9",
+        "NK",
+        "UA"
+      ],
+      "ORD-DTW": [
+        "AA",
+        "DL",
+        "MQ",
+        "NK",
+        "OO",
+        "UA",
+        "YX"
+      ],
+      "ORD-EWR": [
+        "AA",
+        "MQ",
+        "NK",
+        "UA"
+      ],
+      "ORD-IAH": [
+        "AA",
+        "F9",
+        "MQ",
+        "NK",
+        "UA"
+      ],
+      "ORD-JFK": [
+        "AA",
+        "B6",
+        "OO",
+        "YX"
+      ],
+      "ORD-LAS": [
+        "AA",
+        "F9",
+        "NK",
+        "UA",
+        "WN"
+      ],
+      "ORD-LAX": [
+        "AA",
+        "NK",
+        "UA"
+      ],
+      "ORD-LGA": [
+        "AA",
+        "DL",
+        "NK",
+        "OO",
+        "UA",
+        "YX"
+      ],
+      "ORD-MCO": [
+        "AA",
+        "F9",
+        "NK",
+        "UA",
+        "WN"
+      ],
+      "ORD-MSP": [
+        "AA",
+        "DL",
+        "MQ",
+        "OO",
+        "UA",
+        "YX"
+      ],
+      "ORD-PHX": [
+        "AA",
+        "F9",
+        "UA",
+        "WN"
+      ],
+      "ORD-SEA": [
+        "AA",
+        "AS",
+        "DL",
+        "UA"
+      ],
+      "ORD-SFO": [
+        "AA",
+        "AS",
+        "UA"
+      ],
+      "ORD-SLC": [
+        "AA",
+        "DL",
+        "F9",
+        "OO",
+        "UA"
+      ],
+      "PHX-ATL": [
+        "AA",
+        "DL",
+        "F9",
+        "WN"
+      ],
+      "PHX-BOS": [
+        "AA",
+        "B6",
+        "DL"
+      ],
+      "PHX-CLT": [
+        "AA"
+      ],
+      "PHX-DCA": [
+        "AA"
+      ],
+      "PHX-DEN": [
+        "AA",
+        "F9",
+        "MQ",
+        "OO",
+        "UA",
+        "WN"
+      ],
+      "PHX-DFW": [
+        "AA",
+        "F9",
+        "NK"
+      ],
+      "PHX-DTW": [
+        "AA",
+        "DL",
+        "F9",
+        "WN"
+      ],
+      "PHX-EWR": [
+        "AA",
+        "NK",
+        "UA"
+      ],
+      "PHX-IAH": [
+        "AA",
+        "F9",
+        "MQ",
+        "OO",
+        "UA"
+      ],
+      "PHX-JFK": [
+        "AA",
+        "B6",
+        "DL"
+      ],
+      "PHX-LAS": [
+        "AA",
+        "F9",
+        "NK",
+        "WN"
+      ],
+      "PHX-LAX": [
+        "AA",
+        "F9",
+        "OO",
+        "UA",
+        "WN"
+      ],
+      "PHX-LGA": [],
+      "PHX-MCO": [
+        "AA",
+        "F9",
+        "WN"
+      ],
+      "PHX-MSP": [
+        "AA",
+        "DL",
+        "F9",
+        "WN"
+      ],
+      "PHX-ORD": [
+        "AA",
+        "F9",
+        "UA",
+        "WN"
+      ],
+      "PHX-SEA": [
+        "AA",
+        "AS",
+        "DL",
+        "F9",
+        "MQ",
+        "OO",
+        "WN"
+      ],
+      "PHX-SFO": [
+        "AA",
+        "AS",
+        "F9",
+        "MQ",
+        "OO",
+        "UA",
+        "WN"
+      ],
+      "PHX-SLC": [
+        "AA",
+        "DL",
+        "F9",
+        "MQ",
+        "OO",
+        "WN"
+      ],
+      "SEA-ATL": [
+        "AS",
+        "DL"
+      ],
+      "SEA-BOS": [
+        "AS",
+        "B6",
+        "DL"
+      ],
+      "SEA-CLT": [
+        "AA"
+      ],
+      "SEA-DCA": [
+        "AS"
+      ],
+      "SEA-DEN": [
+        "AS",
+        "DL",
+        "F9",
+        "OO",
+        "UA",
+        "WN"
+      ],
+      "SEA-DFW": [
+        "AA",
+        "AS",
+        "DL",
+        "F9"
+      ],
+      "SEA-DTW": [
+        "AS",
+        "DL"
+      ],
+      "SEA-EWR": [
+        "AS",
+        "UA"
+      ],
+      "SEA-IAH": [
+        "AS",
+        "UA"
+      ],
+      "SEA-JFK": [
+        "AS",
+        "B6",
+        "DL"
+      ],
+      "SEA-LAS": [
+        "AS",
+        "DL",
+        "F9",
+        "NK",
+        "WN"
+      ],
+      "SEA-LAX": [
+        "AS",
+        "DL",
+        "NK",
+        "OO",
+        "UA"
+      ],
+      "SEA-MCO": [
+        "AS",
+        "DL"
+      ],
+      "SEA-MSP": [
+        "AS",
+        "DL"
+      ],
+      "SEA-ORD": [
+        "AA",
+        "AS",
+        "DL",
+        "UA"
+      ],
+      "SEA-PHX": [
+        "AS",
+        "DL",
+        "F9",
+        "MQ",
+        "OO",
+        "WN"
+      ],
+      "SEA-SFO": [
+        "AS",
+        "DL",
+        "OO",
+        "UA"
+      ],
+      "SEA-SLC": [
+        "AS",
+        "DL",
+        "F9",
+        "OO"
+      ],
+      "SFO-ATL": [
+        "DL",
+        "F9",
+        "UA"
+      ],
+      "SFO-BOS": [
+        "AS",
+        "B6",
+        "DL",
+        "UA"
+      ],
+      "SFO-CLT": [
+        "AA"
+      ],
+      "SFO-DCA": [
+        "AS",
+        "UA"
+      ],
+      "SFO-DEN": [
+        "F9",
+        "UA",
+        "WN"
+      ],
+      "SFO-DFW": [
+        "AA",
+        "F9",
+        "UA"
+      ],
+      "SFO-DTW": [
+        "DL",
+        "UA"
+      ],
+      "SFO-EWR": [
+        "AS",
+        "UA"
+      ],
+      "SFO-IAH": [
+        "UA"
+      ],
+      "SFO-JFK": [
+        "AA",
+        "AS",
+        "B6",
+        "DL"
+      ],
+      "SFO-LAS": [
+        "AS",
+        "F9",
+        "OO",
+        "UA",
+        "WN"
+      ],
+      "SFO-LAX": [
+        "AA",
+        "AS",
+        "B6",
+        "DL",
+        "F9",
+        "OO",
+        "UA",
+        "WN"
+      ],
+      "SFO-MCO": [
+        "AS",
+        "UA"
+      ],
+      "SFO-MSP": [
+        "DL",
+        "OO",
+        "UA"
+      ],
+      "SFO-ORD": [
+        "AA",
+        "AS",
+        "UA"
+      ],
+      "SFO-PHX": [
+        "AA",
+        "AS",
+        "F9",
+        "MQ",
+        "OO",
+        "UA",
+        "WN"
+      ],
+      "SFO-SEA": [
+        "AS",
+        "DL",
+        "OO",
+        "UA"
+      ],
+      "SFO-SLC": [
+        "DL",
+        "F9",
+        "OO",
+        "UA"
+      ],
+      "SLC-ATL": [
+        "DL"
+      ],
+      "SLC-BOS": [
+        "B6",
+        "DL"
+      ],
+      "SLC-CLT": [
+        "AA",
+        "DL"
+      ],
+      "SLC-DCA": [
+        "DL"
+      ],
+      "SLC-DEN": [
+        "DL",
+        "F9",
+        "OO",
+        "UA",
+        "WN"
+      ],
+      "SLC-DFW": [
+        "AA",
+        "DL",
+        "F9"
+      ],
+      "SLC-DTW": [
+        "DL"
+      ],
+      "SLC-EWR": [
+        "DL",
+        "UA"
+      ],
+      "SLC-IAH": [
+        "DL",
+        "OO",
+        "UA"
+      ],
+      "SLC-JFK": [
+        "B6",
+        "DL"
+      ],
+      "SLC-LAS": [
+        "DL",
+        "F9",
+        "NK",
+        "WN"
+      ],
+      "SLC-LAX": [
+        "B6",
+        "DL",
+        "NK",
+        "OO",
+        "WN"
+      ],
+      "SLC-LGA": [],
+      "SLC-MCO": [
+        "B6",
+        "DL",
+        "NK"
+      ],
+      "SLC-MSP": [
+        "DL"
+      ],
+      "SLC-ORD": [
+        "AA",
+        "DL",
+        "F9",
+        "OO",
+        "UA"
+      ],
+      "SLC-PHX": [
+        "AA",
+        "DL",
+        "F9",
+        "MQ",
+        "OO",
+        "WN"
+      ],
+      "SLC-SEA": [
+        "AS",
+        "DL",
+        "OO"
+      ],
+      "SLC-SFO": [
+        "DL",
+        "F9",
+        "OO",
+        "UA"
+      ]
     }
   }
 }

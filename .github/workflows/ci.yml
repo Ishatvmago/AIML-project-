@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main, endterm]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      ENABLE_LLM: "0"   # no Ollama on GitHub runners; the app uses its template fallback
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Train baseline model (proves training is reproducible)
+        run: python train.py --algorithm logreg --save
+
+      - name: Run tests
+        run: pytest -v
+
+  docker:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t flight-delay-api .
+
+      - name: Smoke test the container
+        run: |
+          docker run -d --name api -p 8000:8000 flight-delay-api
+          for i in $(seq 1 30); do curl -sf localhost:8000/health && exit 0; sleep 2; done
+          docker logs api
+          exit 1

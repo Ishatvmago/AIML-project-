@@ -1,0 +1,1335 @@
+{
+  "algorithm": "gb",
+  "features": [
+    "month",
+    "day_of_month",
+    "day_of_week",
+    "days_to_holiday",
+    "dep_hour",
+    "distance",
+    "airline",
+    "origin",
+    "dest"
+  ],
+  "allowed": {
+    "airline": [
+      "9E",
+      "AA",
+      "AS",
+      "B6",
+      "DL",
+      "F9",
+      "MQ",
+      "NK",
+      "OH",
+      "OO",
+      "UA",
+      "WN",
+      "YX"
+    ],
+    "origin": [
+      "ATL",
+      "BOS",
+      "CLT",
+      "DCA",
+      "DEN",
+      "DFW",
+      "DTW",
+      "EWR",
+      "IAH",
+      "JFK",
+      "LAS",
+      "LAX",
+      "LGA",
+      "MCO",
+      "MSP",
+      "ORD",
+      "PHX",
+      "SEA",
+      "SFO",
+      "SLC"
+    ],
+    "dest": [
+      "ATL",
+      "BOS",
+      "CLT",
+      "DCA",
+      "DEN",
+      "DFW",
+      "DTW",
+      "EWR",
+      "IAH",
+      "JFK",
+      "LAS",
+      "LAX",
+      "LGA",
+      "MCO",
+      "MSP",
+      "ORD",
+      "PHX",
+      "SEA",
+      "SFO",
+      "SLC"
+    ]
+  },
+  "typical": {
+    "month": 7,
+    "day_of_month": 16,
+    "day_of_week": 4,
+    "days_to_holiday": 9,
+    "dep_hour": 13,
+    "distance": 930,
+    "airline": "DL",
+    "origin": "ORD",
+    "dest": "ORD"
+  },
+  "train_stats": {
+    "month": {
+      "mean": 6.6296333333333335,
+      "std": 3.3950097569299125
+    },
+    "day_of_month": {
+      "mean": 15.766525,
+      "std": 8.787858554744238
+    },
+    "day_of_week": {
+      "mean": 3.963433333333333,
+      "std": 2.004809975886547
+    },
+    "days_to_holiday": {
+      "mean": 8.797366666666667,
+      "std": 4.877361442181371
+    },
+    "dep_hour": {
+      "mean": 12.986616666666666,
+      "std": 5.0392574688493745
+    },
+    "distance": {
+      "mean": 1071.3050583333334,
+      "std": 646.583456522924
+    }
+  },
+  "delay_rate": 0.22254166666666667,
+  "delay_rate_by": {
+    "airline": {
+      "9E": 0.19,
+      "AA": 0.251,
+      "AS": 0.254,
+      "B6": 0.243,
+      "DL": 0.188,
+      "F9": 0.309,
+      "MQ": 0.217,
+      "NK": 0.248,
+      "OH": 0.25,
+      "OO": 0.212,
+      "UA": 0.206,
+      "WN": 0.242,
+      "YX": 0.153
+    },
+    "origin": {
+      "ATL": 0.223,
+      "BOS": 0.202,
+      "CLT": 0.271,
+      "DCA": 0.193,
+      "DEN": 0.239,
+      "DFW": 0.275,
+      "DTW": 0.208,
+      "EWR": 0.234,
+      "IAH": 0.236,
+      "JFK": 0.199,
+      "LAS": 0.219,
+      "LAX": 0.196,
+      "LGA": 0.202,
+      "MCO": 0.238,
+      "MSP": 0.195,
+      "ORD": 0.231,
+      "PHX": 0.198,
+      "SEA": 0.214,
+      "SFO": 0.239,
+      "SLC": 0.205
+    },
+    "dep_hour": {
+      "0": 0.168,
+      "1": 0.3,
+      "5": 0.086,
+      "6": 0.095,
+      "7": 0.126,
+      "8": 0.153,
+      "9": 0.159,
+      "10": 0.193,
+      "11": 0.196,
+      "12": 0.208,
+      "13": 0.239,
+      "14": 0.251,
+      "15": 0.278,
+      "16": 0.283,
+      "17": 0.298,
+      "18": 0.309,
+      "19": 0.324,
+      "20": 0.316,
+      "21": 0.309,
+      "22": 0.291,
+      "23": 0.239
+    },
+    "month": {
+      "1": 0.237,
+      "2": 0.167,
+      "3": 0.22,
+      "4": 0.218,
+      "5": 0.296,
+      "6": 0.279,
+      "7": 0.321,
+      "8": 0.261,
+      "9": 0.154,
+      "10": 0.135,
+      "11": 0.168,
+      "12": 0.209
+    },
+    "holiday": {
+      "Birthday of Martin Luther King, Jr.": 0.353,
+      "Christmas Day": 0.229,
+      "Columbus Day": 0.166,
+      "Independence Day": 0.217,
+      "Juneteenth National Independence Day": 0.255,
+      "Labor Day": 0.158,
+      "Memorial Day": 0.312,
+      "New Year's Day": 0.187,
+      "Thanksgiving Day": 0.185,
+      "Veterans Day": 0.136,
+      "Washington's Birthday": 0.186
+    },
+    "not_near_holiday": 0.225
+  },
+  "metrics": {
+    "accuracy": 0.6737,
+    "precision": 0.364,
+    "recall": 0.6237,
+    "f1": 0.4597,
+    "roc_auc": 0.7152
+  },
+  "params": {
+    "algorithm": "gb",
+    "feature_set": "date",
+    "test_size": 0.2,
+    "seed": 42,
+    "max_iter": 800,
+    "learning_rate": 0.05,
+    "max_depth": null,
+    "max_leaf_nodes": 63,
+    "l2": 1.0
+  },
+  "insights": {
+    "rows": 120000,
+    "avg_delay": 17.2,
+    "by_hour": {
+      "0": {
+        "rate": 0.1684,
+        "avg_delay": 15.4,
+        "flights": 582
+      },
+      "1": {
+        "rate": 0.3,
+        "avg_delay": 26.3,
+        "flights": 60
+      },
+      "5": {
+        "rate": 0.0859,
+        "avg_delay": 7.3,
+        "flights": 2806
+      },
+      "6": {
+        "rate": 0.0951,
+        "avg_delay": 8.5,
+        "flights": 8621
+      },
+      "7": {
+        "rate": 0.1257,
+        "avg_delay": 10.1,
+        "flights": 9819
+      },
+      "8": {
+        "rate": 0.1527,
+        "avg_delay": 12.8,
+        "flights": 8154
+      },
+      "9": {
+        "rate": 0.1595,
+        "avg_delay": 12.2,
+        "flights": 6997
+      },
+      "10": {
+        "rate": 0.1927,
+        "avg_delay": 14.2,
+        "flights": 6950
+      },
+      "11": {
+        "rate": 0.1958,
+        "avg_delay": 14.6,
+        "flights": 7176
+      },
+      "12": {
+        "rate": 0.2077,
+        "avg_delay": 16.9,
+        "flights": 6721
+      },
+      "13": {
+        "rate": 0.2391,
+        "avg_delay": 17.6,
+        "flights": 6993
+      },
+      "14": {
+        "rate": 0.2507,
+        "avg_delay": 19.7,
+        "flights": 6371
+      },
+      "15": {
+        "rate": 0.278,
+        "avg_delay": 21.3,
+        "flights": 6622
+      },
+      "16": {
+        "rate": 0.2833,
+        "avg_delay": 22.1,
+        "flights": 7081
+      },
+      "17": {
+        "rate": 0.2984,
+        "avg_delay": 22.9,
+        "flights": 7585
+      },
+      "18": {
+        "rate": 0.3088,
+        "avg_delay": 23.8,
+        "flights": 6998
+      },
+      "19": {
+        "rate": 0.3236,
+        "avg_delay": 24.3,
+        "flights": 6229
+      },
+      "20": {
+        "rate": 0.3164,
+        "avg_delay": 24.4,
+        "flights": 5502
+      },
+      "21": {
+        "rate": 0.3086,
+        "avg_delay": 22.9,
+        "flights": 3681
+      },
+      "22": {
+        "rate": 0.2905,
+        "avg_delay": 20.4,
+        "flights": 2974
+      },
+      "23": {
+        "rate": 0.2387,
+        "avg_delay": 16.9,
+        "flights": 2078
+      }
+    },
+    "by_day": {
+      "1": {
+        "rate": 0.2194,
+        "avg_delay": 16.8,
+        "flights": 18086
+      },
+      "2": {
+        "rate": 0.1931,
+        "avg_delay": 15.3,
+        "flights": 16874
+      },
+      "3": {
+        "rate": 0.2026,
+        "avg_delay": 15.6,
+        "flights": 16836
+      },
+      "4": {
+        "rate": 0.2444,
+        "avg_delay": 18.5,
+        "flights": 17794
+      },
+      "5": {
+        "rate": 0.2492,
+        "avg_delay": 19.7,
+        "flights": 17776
+      },
+      "6": {
+        "rate": 0.2099,
+        "avg_delay": 15.8,
+        "flights": 15224
+      },
+      "7": {
+        "rate": 0.2351,
+        "avg_delay": 18.3,
+        "flights": 17410
+      }
+    },
+    "by_month": {
+      "1": {
+        "rate": 0.2374,
+        "avg_delay": 19.1,
+        "flights": 8847
+      },
+      "2": {
+        "rate": 0.1674,
+        "avg_delay": 11.8,
+        "flights": 8944
+      },
+      "3": {
+        "rate": 0.2198,
+        "avg_delay": 16.3,
+        "flights": 9843
+      },
+      "4": {
+        "rate": 0.2179,
+        "avg_delay": 15.7,
+        "flights": 9864
+      },
+      "5": {
+        "rate": 0.2957,
+        "avg_delay": 23.6,
+        "flights": 10412
+      },
+      "6": {
+        "rate": 0.2789,
+        "avg_delay": 22.8,
+        "flights": 10254
+      },
+      "7": {
+        "rate": 0.3213,
+        "avg_delay": 28.6,
+        "flights": 10421
+      },
+      "8": {
+        "rate": 0.2612,
+        "avg_delay": 21.1,
+        "flights": 10291
+      },
+      "9": {
+        "rate": 0.1543,
+        "avg_delay": 10.9,
+        "flights": 10341
+      },
+      "10": {
+        "rate": 0.1347,
+        "avg_delay": 8.8,
+        "flights": 10742
+      },
+      "11": {
+        "rate": 0.1684,
+        "avg_delay": 11.6,
+        "flights": 10004
+      },
+      "12": {
+        "rate": 0.2085,
+        "avg_delay": 15.3,
+        "flights": 10037
+      }
+    },
+    "by_days_to_holiday": {
+      "0": {
+        "rate": 0.2026,
+        "avg_delay": 16.7,
+        "flights": 3351
+      },
+      "1": {
+        "rate": 0.1996,
+        "avg_delay": 16.4,
+        "flights": 7073
+      },
+      "2": {
+        "rate": 0.2104,
+        "avg_delay": 14.6,
+        "flights": 6892
+      },
+      "3": {
+        "rate": 0.2386,
+        "avg_delay": 18.5,
+        "flights": 7245
+      },
+      "4": {
+        "rate": 0.2428,
+        "avg_delay": 18.8,
+        "flights": 6879
+      },
+      "5": {
+        "rate": 0.2051,
+        "avg_delay": 16.0,
+        "flights": 6271
+      },
+      "6": {
+        "rate": 0.2257,
+        "avg_delay": 17.5,
+        "flights": 6709
+      },
+      "7": {
+        "rate": 0.2349,
+        "avg_delay": 18.5,
+        "flights": 6438
+      },
+      "8": {
+        "rate": 0.188,
+        "avg_delay": 14.2,
+        "flights": 5298
+      },
+      "9": {
+        "rate": 0.1945,
+        "avg_delay": 13.4,
+        "flights": 4436
+      },
+      "10": {
+        "rate": 0.1978,
+        "avg_delay": 13.8,
+        "flights": 4823
+      },
+      "11": {
+        "rate": 0.1987,
+        "avg_delay": 15.0,
+        "flights": 4781
+      },
+      "12": {
+        "rate": 0.1714,
+        "avg_delay": 12.2,
+        "flights": 3739
+      },
+      "13": {
+        "rate": 0.1917,
+        "avg_delay": 14.3,
+        "flights": 4006
+      },
+      "14": {
+        "rate": 0.2444,
+        "avg_delay": 19.3,
+        "flights": 42059
+      }
+    },
+    "by_airline": {
+      "9E": {
+        "rate": 0.1903,
+        "avg_delay": 16.4,
+        "flights": 657
+      },
+      "AA": {
+        "rate": 0.2505,
+        "avg_delay": 21.7,
+        "flights": 23655
+      },
+      "AS": {
+        "rate": 0.2539,
+        "avg_delay": 14.8,
+        "flights": 5530
+      },
+      "B6": {
+        "rate": 0.2428,
+        "avg_delay": 19.3,
+        "flights": 6536
+      },
+      "DL": {
+        "rate": 0.1876,
+        "avg_delay": 14.7,
+        "flights": 30148
+      },
+      "F9": {
+        "rate": 0.3095,
+        "avg_delay": 24.6,
+        "flights": 5558
+      },
+      "MQ": {
+        "rate": 0.2174,
+        "avg_delay": 13.9,
+        "flights": 883
+      },
+      "NK": {
+        "rate": 0.2478,
+        "avg_delay": 17.9,
+        "flights": 6166
+      },
+      "OH": {
+        "rate": 0.25,
+        "avg_delay": 19.1,
+        "flights": 636
+      },
+      "OO": {
+        "rate": 0.2125,
+        "avg_delay": 16.9,
+        "flights": 3346
+      },
+      "UA": {
+        "rate": 0.2056,
+        "avg_delay": 16.0,
+        "flights": 23625
+      },
+      "WN": {
+        "rate": 0.2419,
+        "avg_delay": 14.5,
+        "flights": 9117
+      },
+      "YX": {
+        "rate": 0.153,
+        "avg_delay": 11.3,
+        "flights": 4143
+      }
+    },
+    "by_origin": {
+      "ATL": {
+        "rate": 0.2231,
+        "avg_delay": 15.8,
+        "flights": 8019
+      },
+      "BOS": {
+        "rate": 0.2017,
+        "avg_delay": 15.2,
+        "flights": 6450
+      },
+      "CLT": {
+        "rate": 0.2715,
+        "avg_delay": 20.3,
+        "flights": 5326
+      },
+      "DCA": {
+        "rate": 0.1932,
+        "avg_delay": 17.5,
+        "flights": 4306
+      },
+      "DEN": {
+        "rate": 0.2391,
+        "avg_delay": 17.5,
+        "flights": 8123
+      },
+      "DFW": {
+        "rate": 0.2755,
+        "avg_delay": 21.3,
+        "flights": 7442
+      },
+      "DTW": {
+        "rate": 0.2083,
+        "avg_delay": 17.4,
+        "flights": 4527
+      },
+      "EWR": {
+        "rate": 0.2338,
+        "avg_delay": 19.0,
+        "flights": 4910
+      },
+      "IAH": {
+        "rate": 0.2358,
+        "avg_delay": 18.8,
+        "flights": 5094
+      },
+      "JFK": {
+        "rate": 0.1992,
+        "avg_delay": 15.9,
+        "flights": 4503
+      },
+      "LAS": {
+        "rate": 0.2188,
+        "avg_delay": 16.5,
+        "flights": 6484
+      },
+      "LAX": {
+        "rate": 0.1956,
+        "avg_delay": 15.0,
+        "flights": 8450
+      },
+      "LGA": {
+        "rate": 0.2017,
+        "avg_delay": 18.6,
+        "flights": 5196
+      },
+      "MCO": {
+        "rate": 0.2384,
+        "avg_delay": 19.2,
+        "flights": 5956
+      },
+      "MSP": {
+        "rate": 0.1953,
+        "avg_delay": 13.3,
+        "flights": 4317
+      },
+      "ORD": {
+        "rate": 0.231,
+        "avg_delay": 18.8,
+        "flights": 8772
+      },
+      "PHX": {
+        "rate": 0.1982,
+        "avg_delay": 14.9,
+        "flights": 6323
+      },
+      "SEA": {
+        "rate": 0.2141,
+        "avg_delay": 13.8,
+        "flights": 5660
+      },
+      "SFO": {
+        "rate": 0.2394,
+        "avg_delay": 18.3,
+        "flights": 5941
+      },
+      "SLC": {
+        "rate": 0.2047,
+        "avg_delay": 15.5,
+        "flights": 4201
+      }
+    },
+    "delay_buckets": {
+      "On time (<15 min)": 0.7775,
+      "15-30 min": 0.0776,
+      "30-60 min": 0.066,
+      "1-2 hours": 0.046,
+      "2+ hours": 0.0329
+    },
+    "top_routes": [
+      {
+        "source": "LAX",
+        "target": "SFO",
+        "volume": 919,
+        "rate": 0.3275,
+        "distance": 337
+      },
+      {
+        "source": "LGA",
+        "target": "ORD",
+        "volume": 888,
+        "rate": 0.2252,
+        "distance": 733
+      },
+      {
+        "source": "ORD",
+        "target": "LGA",
+        "volume": 874,
+        "rate": 0.2174,
+        "distance": 733
+      },
+      {
+        "source": "SFO",
+        "target": "LAX",
+        "volume": 871,
+        "rate": 0.2308,
+        "distance": 337
+      },
+      {
+        "source": "JFK",
+        "target": "LAX",
+        "volume": 844,
+        "rate": 0.1671,
+        "distance": 2475
+      },
+      {
+        "source": "LAS",
+        "target": "LAX",
+        "volume": 812,
+        "rate": 0.2167,
+        "distance": 236
+      },
+      {
+        "source": "DEN",
+        "target": "PHX",
+        "volume": 786,
+        "rate": 0.2417,
+        "distance": 602
+      },
+      {
+        "source": "LAX",
+        "target": "LAS",
+        "volume": 784,
+        "rate": 0.2411,
+        "distance": 236
+      },
+      {
+        "source": "DCA",
+        "target": "BOS",
+        "volume": 774,
+        "rate": 0.2158,
+        "distance": 399
+      },
+      {
+        "source": "PHX",
+        "target": "DEN",
+        "volume": 754,
+        "rate": 0.191,
+        "distance": 602
+      },
+      {
+        "source": "ATL",
+        "target": "MCO",
+        "volume": 751,
+        "rate": 0.261,
+        "distance": 404
+      },
+      {
+        "source": "LAX",
+        "target": "JFK",
+        "volume": 737,
+        "rate": 0.1764,
+        "distance": 2475
+      },
+      {
+        "source": "BOS",
+        "target": "DCA",
+        "volume": 727,
+        "rate": 0.1843,
+        "distance": 399
+      },
+      {
+        "source": "MCO",
+        "target": "ATL",
+        "volume": 701,
+        "rate": 0.234,
+        "distance": 404
+      },
+      {
+        "source": "SLC",
+        "target": "DEN",
+        "volume": 679,
+        "rate": 0.215,
+        "distance": 391
+      },
+      {
+        "source": "DEN",
+        "target": "LAS",
+        "volume": 670,
+        "rate": 0.2537,
+        "distance": 628
+      },
+      {
+        "source": "LAS",
+        "target": "DEN",
+        "volume": 663,
+        "rate": 0.2262,
+        "distance": 628
+      },
+      {
+        "source": "LGA",
+        "target": "ATL",
+        "volume": 661,
+        "rate": 0.1921,
+        "distance": 762
+      },
+      {
+        "source": "LGA",
+        "target": "BOS",
+        "volume": 658,
+        "rate": 0.1869,
+        "distance": 184
+      },
+      {
+        "source": "LAX",
+        "target": "DEN",
+        "volume": 657,
+        "rate": 0.137,
+        "distance": 862
+      },
+      {
+        "source": "DEN",
+        "target": "SLC",
+        "volume": 652,
+        "rate": 0.2117,
+        "distance": 391
+      },
+      {
+        "source": "BOS",
+        "target": "LGA",
+        "volume": 647,
+        "rate": 0.1638,
+        "distance": 184
+      },
+      {
+        "source": "DEN",
+        "target": "LAX",
+        "volume": 628,
+        "rate": 0.2229,
+        "distance": 862
+      },
+      {
+        "source": "SEA",
+        "target": "LAX",
+        "volume": 628,
+        "rate": 0.1799,
+        "distance": 954
+      },
+      {
+        "source": "ATL",
+        "target": "LGA",
+        "volume": 618,
+        "rate": 0.1909,
+        "distance": 762
+      },
+      {
+        "source": "LAX",
+        "target": "SEA",
+        "volume": 617,
+        "rate": 0.1799,
+        "distance": 954
+      },
+      {
+        "source": "PHX",
+        "target": "LAS",
+        "volume": 606,
+        "rate": 0.2162,
+        "distance": 255
+      },
+      {
+        "source": "ORD",
+        "target": "BOS",
+        "volume": 596,
+        "rate": 0.2785,
+        "distance": 867
+      },
+      {
+        "source": "PHX",
+        "target": "SEA",
+        "volume": 591,
+        "rate": 0.1794,
+        "distance": 1107
+      },
+      {
+        "source": "LAX",
+        "target": "DFW",
+        "volume": 585,
+        "rate": 0.1897,
+        "distance": 1235
+      },
+      {
+        "source": "DFW",
+        "target": "ORD",
+        "volume": 581,
+        "rate": 0.2737,
+        "distance": 802
+      },
+      {
+        "source": "ORD",
+        "target": "LAX",
+        "volume": 578,
+        "rate": 0.2024,
+        "distance": 1744
+      },
+      {
+        "source": "DFW",
+        "target": "LAX",
+        "volume": 576,
+        "rate": 0.2847,
+        "distance": 1235
+      },
+      {
+        "source": "LAS",
+        "target": "PHX",
+        "volume": 575,
+        "rate": 0.2,
+        "distance": 255
+      },
+      {
+        "source": "DCA",
+        "target": "ATL",
+        "volume": 573,
+        "rate": 0.1832,
+        "distance": 547
+      },
+      {
+        "source": "ATL",
+        "target": "DCA",
+        "volume": 566,
+        "rate": 0.2544,
+        "distance": 547
+      },
+      {
+        "source": "BOS",
+        "target": "ORD",
+        "volume": 566,
+        "rate": 0.2032,
+        "distance": 867
+      },
+      {
+        "source": "SEA",
+        "target": "PHX",
+        "volume": 560,
+        "rate": 0.1964,
+        "distance": 1107
+      },
+      {
+        "source": "LAX",
+        "target": "PHX",
+        "volume": 557,
+        "rate": 0.2011,
+        "distance": 370
+      },
+      {
+        "source": "PHX",
+        "target": "LAX",
+        "volume": 553,
+        "rate": 0.1826,
+        "distance": 370
+      }
+    ],
+    "route_distance": {
+      "ATL-BOS": 946,
+      "ATL-CLT": 226,
+      "ATL-DCA": 547,
+      "ATL-DEN": 1199,
+      "ATL-DFW": 731,
+      "ATL-DTW": 594,
+      "ATL-EWR": 746,
+      "ATL-IAH": 689,
+      "ATL-JFK": 760,
+      "ATL-LAS": 1747,
+      "ATL-LAX": 1947,
+      "ATL-LGA": 762,
+      "ATL-MCO": 404,
+      "ATL-MSP": 907,
+      "ATL-ORD": 606,
+      "ATL-PHX": 1587,
+      "ATL-SEA": 2182,
+      "ATL-SFO": 2139,
+      "ATL-SLC": 1590,
+      "BOS-ATL": 946,
+      "BOS-CLT": 728,
+      "BOS-DCA": 399,
+      "BOS-DEN": 1754,
+      "BOS-DFW": 1562,
+      "BOS-DTW": 632,
+      "BOS-EWR": 200,
+      "BOS-IAH": 1597,
+      "BOS-JFK": 187,
+      "BOS-LAS": 2381,
+      "BOS-LAX": 2611,
+      "BOS-LGA": 184,
+      "BOS-MCO": 1121,
+      "BOS-MSP": 1124,
+      "BOS-ORD": 867,
+      "BOS-PHX": 2300,
+      "BOS-SEA": 2496,
+      "BOS-SFO": 2704,
+      "BOS-SLC": 2105,
+      "CLT-ATL": 226,
+      "CLT-BOS": 728,
+      "CLT-DCA": 331,
+      "CLT-DEN": 1337,
+      "CLT-DFW": 936,
+      "CLT-DTW": 500,
+      "CLT-EWR": 529,
+      "CLT-IAH": 912,
+      "CLT-JFK": 541,
+      "CLT-LAS": 1916,
+      "CLT-LAX": 2125,
+      "CLT-LGA": 544,
+      "CLT-MCO": 468,
+      "CLT-MSP": 930,
+      "CLT-ORD": 599,
+      "CLT-PHX": 1773,
+      "CLT-SEA": 2279,
+      "CLT-SFO": 2296,
+      "CLT-SLC": 1727,
+      "DCA-ATL": 547,
+      "DCA-BOS": 399,
+      "DCA-CLT": 331,
+      "DCA-DEN": 1476,
+      "DCA-DFW": 1192,
+      "DCA-DTW": 405,
+      "DCA-EWR": 199,
+      "DCA-IAH": 1208,
+      "DCA-JFK": 213,
+      "DCA-LAS": 2089,
+      "DCA-LAX": 2311,
+      "DCA-LGA": 214,
+      "DCA-MCO": 759,
+      "DCA-MSP": 931,
+      "DCA-ORD": 612,
+      "DCA-PHX": 1979,
+      "DCA-SEA": 2329,
+      "DCA-SFO": 2442,
+      "DCA-SLC": 1851,
+      "DEN-ATL": 1199,
+      "DEN-BOS": 1754,
+      "DEN-CLT": 1337,
+      "DEN-DCA": 1476,
+      "DEN-DFW": 641,
+      "DEN-DTW": 1123,
+      "DEN-EWR": 1605,
+      "DEN-IAH": 862,
+      "DEN-JFK": 1626,
+      "DEN-LAS": 628,
+      "DEN-LAX": 862,
+      "DEN-LGA": 1620,
+      "DEN-MCO": 1546,
+      "DEN-MSP": 680,
+      "DEN-ORD": 888,
+      "DEN-PHX": 602,
+      "DEN-SEA": 1024,
+      "DEN-SFO": 967,
+      "DEN-SLC": 391,
+      "DFW-ATL": 731,
+      "DFW-BOS": 1562,
+      "DFW-CLT": 936,
+      "DFW-DCA": 1192,
+      "DFW-DEN": 641,
+      "DFW-DTW": 986,
+      "DFW-EWR": 1372,
+      "DFW-IAH": 224,
+      "DFW-JFK": 1391,
+      "DFW-LAS": 1055,
+      "DFW-LAX": 1235,
+      "DFW-LGA": 1389,
+      "DFW-MCO": 985,
+      "DFW-MSP": 852,
+      "DFW-ORD": 802,
+      "DFW-PHX": 868,
+      "DFW-SEA": 1660,
+      "DFW-SFO": 1464,
+      "DFW-SLC": 989,
+      "DTW-ATL": 594,
+      "DTW-BOS": 632,
+      "DTW-CLT": 500,
+      "DTW-DCA": 405,
+      "DTW-DEN": 1123,
+      "DTW-DFW": 986,
+      "DTW-EWR": 488,
+      "DTW-IAH": 1075,
+      "DTW-JFK": 509,
+      "DTW-LAS": 1749,
+      "DTW-LAX": 1979,
+      "DTW-LGA": 502,
+      "DTW-MCO": 957,
+      "DTW-MSP": 528,
+      "DTW-ORD": 235,
+      "DTW-PHX": 1671,
+      "DTW-SEA": 1927,
+      "DTW-SFO": 2079,
+      "DTW-SLC": 1481,
+      "EWR-ATL": 746,
+      "EWR-BOS": 200,
+      "EWR-CLT": 529,
+      "EWR-DCA": 199,
+      "EWR-DEN": 1605,
+      "EWR-DFW": 1372,
+      "EWR-DTW": 488,
+      "EWR-IAH": 1400,
+      "EWR-LAS": 2227,
+      "EWR-LAX": 2454,
+      "EWR-MCO": 937,
+      "EWR-MSP": 1008,
+      "EWR-ORD": 719,
+      "EWR-PHX": 2133,
+      "EWR-SEA": 2402,
+      "EWR-SFO": 2565,
+      "EWR-SLC": 1969,
+      "IAH-ATL": 689,
+      "IAH-BOS": 1597,
+      "IAH-CLT": 912,
+      "IAH-DCA": 1208,
+      "IAH-DEN": 862,
+      "IAH-DFW": 224,
+      "IAH-DTW": 1075,
+      "IAH-EWR": 1400,
+      "IAH-JFK": 1417,
+      "IAH-LAS": 1222,
+      "IAH-LAX": 1379,
+      "IAH-LGA": 1416,
+      "IAH-MCO": 854,
+      "IAH-MSP": 1034,
+      "IAH-ORD": 925,
+      "IAH-PHX": 1009,
+      "IAH-SEA": 1874,
+      "IAH-SFO": 1635,
+      "IAH-SLC": 1195,
+      "JFK-ATL": 760,
+      "JFK-BOS": 187,
+      "JFK-CLT": 541,
+      "JFK-DCA": 213,
+      "JFK-DEN": 1626,
+      "JFK-DFW": 1391,
+      "JFK-DTW": 509,
+      "JFK-IAH": 1417,
+      "JFK-LAS": 2248,
+      "JFK-LAX": 2475,
+      "JFK-MCO": 944,
+      "JFK-MSP": 1029,
+      "JFK-ORD": 740,
+      "JFK-PHX": 2153,
+      "JFK-SEA": 2422,
+      "JFK-SFO": 2586,
+      "JFK-SLC": 1990,
+      "LAS-ATL": 1747,
+      "LAS-BOS": 2381,
+      "LAS-CLT": 1916,
+      "LAS-DCA": 2089,
+      "LAS-DEN": 628,
+      "LAS-DFW": 1055,
+      "LAS-DTW": 1749,
+      "LAS-EWR": 2227,
+      "LAS-IAH": 1222,
+      "LAS-JFK": 2248,
+      "LAS-LAX": 236,
+      "LAS-LGA": 2242,
+      "LAS-MCO": 2039,
+      "LAS-MSP": 1299,
+      "LAS-ORD": 1514,
+      "LAS-PHX": 255,
+      "LAS-SEA": 867,
+      "LAS-SFO": 414,
+      "LAS-SLC": 368,
+      "LAX-ATL": 1947,
+      "LAX-BOS": 2611,
+      "LAX-CLT": 2125,
+      "LAX-DCA": 2311,
+      "LAX-DEN": 862,
+      "LAX-DFW": 1235,
+      "LAX-DTW": 1979,
+      "LAX-EWR": 2454,
+      "LAX-IAH": 1379,
+      "LAX-JFK": 2475,
+      "LAX-LAS": 236,
+      "LAX-MCO": 2218,
+      "LAX-MSP": 1535,
+      "LAX-ORD": 1744,
+      "LAX-PHX": 370,
+      "LAX-SEA": 954,
+      "LAX-SFO": 337,
+      "LAX-SLC": 590,
+      "LGA-ATL": 762,
+      "LGA-BOS": 184,
+      "LGA-CLT": 544,
+      "LGA-DCA": 214,
+      "LGA-DEN": 1620,
+      "LGA-DFW": 1389,
+      "LGA-DTW": 502,
+      "LGA-IAH": 1416,
+      "LGA-LAX": 2469,
+      "LGA-MCO": 950,
+      "LGA-MSP": 1020,
+      "LGA-ORD": 733,
+      "LGA-SLC": 1983,
+      "MCO-ATL": 404,
+      "MCO-BOS": 1121,
+      "MCO-CLT": 468,
+      "MCO-DCA": 759,
+      "MCO-DEN": 1546,
+      "MCO-DFW": 985,
+      "MCO-DTW": 957,
+      "MCO-EWR": 937,
+      "MCO-IAH": 854,
+      "MCO-JFK": 944,
+      "MCO-LAS": 2039,
+      "MCO-LAX": 2218,
+      "MCO-LGA": 950,
+      "MCO-MSP": 1310,
+      "MCO-ORD": 1005,
+      "MCO-PHX": 1849,
+      "MCO-SEA": 2554,
+      "MCO-SFO": 2446,
+      "MCO-SLC": 1931,
+      "MSP-ATL": 907,
+      "MSP-BOS": 1124,
+      "MSP-CLT": 930,
+      "MSP-DCA": 931,
+      "MSP-DEN": 680,
+      "MSP-DFW": 852,
+      "MSP-DTW": 528,
+      "MSP-EWR": 1008,
+      "MSP-IAH": 1034,
+      "MSP-JFK": 1029,
+      "MSP-LAS": 1299,
+      "MSP-LAX": 1535,
+      "MSP-LGA": 1020,
+      "MSP-MCO": 1310,
+      "MSP-ORD": 334,
+      "MSP-PHX": 1276,
+      "MSP-SEA": 1399,
+      "MSP-SFO": 1589,
+      "MSP-SLC": 991,
+      "ORD-ATL": 606,
+      "ORD-BOS": 867,
+      "ORD-CLT": 599,
+      "ORD-DCA": 612,
+      "ORD-DEN": 888,
+      "ORD-DFW": 802,
+      "ORD-DTW": 235,
+      "ORD-EWR": 719,
+      "ORD-IAH": 925,
+      "ORD-JFK": 740,
+      "ORD-LAS": 1514,
+      "ORD-LAX": 1744,
+      "ORD-LGA": 733,
+      "ORD-MCO": 1005,
+      "ORD-MSP": 334,
+      "ORD-PHX": 1440,
+      "ORD-SEA": 1721,
+      "ORD-SFO": 1846,
+      "ORD-SLC": 1250,
+      "PHX-ATL": 1587,
+      "PHX-BOS": 2300,
+      "PHX-CLT": 1773,
+      "PHX-DCA": 1979,
+      "PHX-DEN": 602,
+      "PHX-DFW": 868,
+      "PHX-DTW": 1671,
+      "PHX-EWR": 2133,
+      "PHX-IAH": 1009,
+      "PHX-JFK": 2153,
+      "PHX-LAS": 255,
+      "PHX-LAX": 370,
+      "PHX-LGA": 2149,
+      "PHX-MCO": 1849,
+      "PHX-MSP": 1276,
+      "PHX-ORD": 1440,
+      "PHX-SEA": 1107,
+      "PHX-SFO": 651,
+      "PHX-SLC": 507,
+      "SEA-ATL": 2182,
+      "SEA-BOS": 2496,
+      "SEA-CLT": 2279,
+      "SEA-DCA": 2329,
+      "SEA-DEN": 1024,
+      "SEA-DFW": 1660,
+      "SEA-DTW": 1927,
+      "SEA-EWR": 2402,
+      "SEA-IAH": 1874,
+      "SEA-JFK": 2422,
+      "SEA-LAS": 867,
+      "SEA-LAX": 954,
+      "SEA-MCO": 2554,
+      "SEA-MSP": 1399,
+      "SEA-ORD": 1721,
+      "SEA-PHX": 1107,
+      "SEA-SFO": 679,
+      "SEA-SLC": 689,
+      "SFO-ATL": 2139,
+      "SFO-BOS": 2704,
+      "SFO-CLT": 2296,
+      "SFO-DCA": 2442,
+      "SFO-DEN": 967,
+      "SFO-DFW": 1464,
+      "SFO-DTW": 2079,
+      "SFO-EWR": 2565,
+      "SFO-IAH": 1635,
+      "SFO-JFK": 2586,
+      "SFO-LAS": 414,
+      "SFO-LAX": 337,
+      "SFO-MCO": 2446,
+      "SFO-MSP": 1589,
+      "SFO-ORD": 1846,
+      "SFO-PHX": 651,
+      "SFO-SEA": 679,
+      "SFO-SLC": 599,
+      "SLC-ATL": 1590,
+      "SLC-BOS": 2105,
+      "SLC-CLT": 1727,
+      "SLC-DCA": 1851,
+      "SLC-DEN": 391,
+      "SLC-DFW": 989,
+      "SLC-DTW": 1481,
+      "SLC-EWR": 1969,
+      "SLC-IAH": 1195,
+      "SLC-JFK": 1990,
+      "SLC-LAS": 368,
+      "SLC-LAX": 590,
+      "SLC-LGA": 1983,
+      "SLC-MCO": 1931,
+      "SLC-MSP": 991,
+      "SLC-ORD": 1250,
+      "SLC-PHX": 507,
+      "SLC-SEA": 689,
+      "SLC-SFO": 599
+    }
+  }
+}

@@ -6,9 +6,13 @@ Compares every training run recorded in MLflow and saves a chart and a table for
 Writes:
     reports/model_comparison.png   bar chart: best ROC-AUC and F1 for each algorithm
     reports/model_comparison.md    table of all runs, best first
+    model/experiments.json         all runs + feature importance, shown in the web app's
+                                   "Model Lab" tab (mlflow.db itself is not deployed)
 """
 
+import json
 import os
+from datetime import datetime, timezone
 
 import matplotlib
 
@@ -61,7 +65,12 @@ def main():
 
     rows = []
     for _, run in runs.iterrows():
+        has_cv = "metrics.cv_roc_auc_mean" in run and run["metrics.cv_roc_auc_mean"] == run["metrics.cv_roc_auc_mean"]
         rows.append({
+            "code": run["params.algorithm"],
+            "started": run["start_time"].isoformat(),
+            "cv_mean": round(float(run["metrics.cv_roc_auc_mean"]), 4) if has_cv else None,
+            "cv_std": round(float(run["metrics.cv_roc_auc_std"]), 4) if has_cv else None,
             "algorithm": NAMES.get(run["params.algorithm"], run["params.algorithm"]),
             "features": run.get("params.feature_set") or "base",
             "settings": describe(run),
@@ -109,6 +118,48 @@ def main():
     path = os.path.join(OUT_DIR, "model_comparison.png")
     fig.savefig(path, dpi=160)
     print(f"\nSaved {path} and {os.path.join(OUT_DIR, 'model_comparison.md')}")
+    write_experiments_json(rows)
+
+
+def feature_importance():
+    """Permutation importance of the served model on the same 20% test split train.py uses."""
+    import joblib
+    import pandas as pd
+    from sklearn.inspection import permutation_importance
+    from sklearn.model_selection import train_test_split
+
+    from features import add_date_features
+
+    with open(os.path.join("model", "metadata.json")) as f:
+        meta = json.load(f)
+    df = add_date_features(pd.read_csv(os.path.join("data", "flights.csv")))
+    X, y = df[meta["features"]], df["delayed"]
+    _, X_test, _, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
+    model = joblib.load(os.path.join("model", "model.joblib"))
+    result = permutation_importance(model, X_test, y_test, scoring="roc_auc", n_repeats=5, random_state=42)
+    return meta, sorted(
+        ({"feature": f, "importance": round(float(m), 4), "std": round(float(s), 4)}
+         for f, m, s in zip(meta["features"], result.importances_mean, result.importances_std)),
+        key=lambda r: r["importance"], reverse=True)
+
+
+def write_experiments_json(rows):
+    meta, importance = feature_importance()
+    chosen = meta["metrics"]
+    runs = sorted(rows, key=lambda r: r["started"])  # run order = training order
+    for i, r in enumerate(runs, 1):
+        r["run"] = i
+        # the served model: same algorithm, feature set and test metrics as model/metadata.json
+        r["selected"] = (r["code"] == meta["algorithm"] and r["features"] == meta["params"].get("feature_set")
+                         and abs(r["roc_auc"] - chosen["roc_auc"]) < 1e-4 and abs(r["f1"] - chosen["f1"]) < 1e-4
+                         and r["cv_mean"] is None)
+        for k in ("accuracy", "precision", "recall", "f1", "roc_auc"):
+            r[k] = round(float(r[k]), 4)
+    path = os.path.join("model", "experiments.json")
+    with open(path, "w") as f:
+        json.dump({"generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                   "runs": runs, "feature_importance": importance}, f, indent=2)
+    print(f"Saved {path} ({len(runs)} runs, {sum(r['selected'] for r in runs)} selected)")
 
 
 if __name__ == "__main__":

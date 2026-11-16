@@ -1,18 +1,41 @@
 # Flight Delay Predictor
 
+[![CI](https://github.com/Ishatvmago/AIML-project-/actions/workflows/ci.yml/badge.svg)](https://github.com/Ishatvmago/AIML-project-/actions/workflows/ci.yml)
+![Python 3.11](https://img.shields.io/badge/python-3.11-3776AB)
+![FastAPI](https://img.shields.io/badge/API-FastAPI-009688)
+![MLflow](https://img.shields.io/badge/tracking-MLflow-0194E2)
+![Docker](https://img.shields.io/badge/container-Docker-2496ED)
+
+**Live demo:** deployment on Render in progress (link added here once it is live)
+
 Predicts the probability that a US domestic flight arrives **15 or more minutes late**, explains
 which factors drive the prediction, and uses a **local generative AI model** (Llama 3.2 via Ollama,
 no API key) to turn the result into plain-English advice for the passenger.
 
 CSL236 end-term project · Ishatv Mago (24csu082)
 
+| At a glance | |
+|---|---|
+| Data | 6.97 million real US flights (BTS, all of 2024); 120,000 used for training and testing |
+| Best model | Gradient Boosting, ROC-AUC **0.715** on 24,000 test flights, 5-fold CV **0.716 ± 0.003** |
+| Experiments | 13 MLflow runs, 6 algorithms, 2 feature sets, all shown in the app's **Model Lab** tab |
+| For travellers | delay risk, the reasons behind it, data-based tips, **safer options** (time, airline, date), links to check real flights |
+| Generative AI | Llama 3.2 runs locally through Ollama to explain each prediction; no external API or key |
+| Quality | 23 tests, Docker image with health check, GitHub Actions CI, drift monitoring |
+
+<p>
+  <img src="reports/figures/fig1_architecture.png" alt="System architecture" width="360">
+  &nbsp;
+  <img src="reports/model_comparison.png" alt="Best run of each algorithm" width="460">
+</p>
+
 | Stage | What we built | Where |
 |---|---|---|
 | 1. Environment | Python 3.11 venv, pinned dependencies | `requirements.txt`, `requirements-serve.txt` |
 | 2. Experiment tracking | MLflow (SQLite), 13 runs, 6 algorithms, 2 feature sets, tuning, 5-fold CV | `train.py`, `mlflow.db`, `compare_models.py` |
 | 3. Model artifact | MLflow Model Registry (`flight-delay-model`, alias `production`); pipeline saved once, loaded once at API startup | `model/model.joblib`, `model/metadata.json` |
-| 4. API + UI | FastAPI `/health`, `/predict`, `/explain`, `/alternatives`; React UI served at `/` | `app.py`, `static/`, `frontend/` |
-| 5. Tests | 22 pytest cases: health, UI, domain logic, date features, 422 boundaries, fallback, logging | `tests/test_app.py` |
+| 4. API + UI | FastAPI `/health`, `/predict`, `/explain`, `/alternatives`, `/experiments`; React UI served at `/` | `app.py`, `static/`, `frontend/` |
+| 5. Tests | 23 pytest cases: health, UI, domain logic, date features, 422 boundaries, fallback, logging | `tests/test_app.py` |
 | 6. Container | `python:3.11-slim`, serve-only requirements, health check | `Dockerfile` |
 | 7. CI | GitHub Actions: install → train baseline → pytest → Docker build + smoke test | `.github/workflows/ci.yml` |
 | 8. Deploy + monitoring | Render free tier, every prediction logged, drift check | `logs/predictions.jsonl`, `drift_check.py` |
@@ -180,7 +203,7 @@ python train.py --algorithm dt --max_depth 10           # Decision Tree
 python train.py --algorithm et --n_estimators 300 --max_depth 20   # Extra Trees
 python train.py --algorithm mlp --hidden 128,64 --alpha 0.001      # neural network
 python train.py --algorithm gb --max_iter 800 --learning_rate 0.05 --max_leaf_nodes 63 --l2 1.0 --cv 5
-python compare_models.py                                # chart + table of all runs in reports/
+python compare_models.py                                # chart + table in reports/, model/experiments.json for the Model Lab
 mlflow ui --backend-store-uri sqlite:///mlflow.db --port 5001   # compare runs
 ```
 
@@ -200,11 +223,12 @@ npm run build     # writes the production UI into ../static
 pytest -v
 ```
 
-22 tests: health check, UI loads, prediction shape, two domain-logic checks (evening riskier than
+23 tests: health check, UI loads, prediction shape, two domain-logic checks (evening riskier than
 early morning; July riskier than October), date features (2026-11-25 is a Wednesday, 1 day from
 Thanksgiving), nine invalid-input 422 cases, same-airport 422, missing
-field 422, lower-case codes accepted, LLM template fallback, prediction logging, and safer alternatives (each suggestion is safer than
-the original, airlines only from the route's real carriers, invalid input rejected).
+field 422, lower-case codes accepted, LLM template fallback, prediction logging, safer alternatives (each suggestion is safer than
+the original, airlines only from the route's real carriers, invalid input rejected), and the Model Lab
+export (exactly one run marked as the served model, and it is the best by ROC-AUC).
 
 ## 5. Docker
 

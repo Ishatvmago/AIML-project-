@@ -115,10 +115,35 @@ export interface StatsResponse {
   llm: { available: boolean; model: string }
 }
 
+export interface ExperimentRun {
+  run: number
+  code: string
+  algorithm: string
+  features: 'base' | 'date'
+  settings: string
+  accuracy: number
+  precision: number
+  recall: number
+  f1: number
+  roc_auc: number
+  cv_mean: number | null
+  cv_std: number | null
+  selected: boolean
+}
+
+export interface ExperimentsResponse {
+  generated: string
+  runs: ExperimentRun[]
+  feature_importance: { feature: string; importance: number; std: number }[]
+}
+
 export const ALGORITHM_NAMES: Record<string, string> = {
   gb: 'Gradient Boosting',
   rf: 'Random Forest',
   logreg: 'Logistic Regression',
+  dt: 'Decision Tree',
+  et: 'Extra Trees',
+  mlp: 'Neural Network (MLP)',
 }
 
 export const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']

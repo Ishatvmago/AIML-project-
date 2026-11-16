@@ -16,6 +16,7 @@ Routes:
     POST /explain          plain-English explanation written by a local LLM (Ollama),
                            falling back to a template when no LLM is available
     POST /alternatives     safer options for the same trip: another time, airline or date
+    GET  /experiments      every MLflow training run + feature importance (Model Lab tab)
 """
 
 import json
@@ -35,6 +36,7 @@ from features import HOLIDAY_WINDOW, MAX_DAYS, date_features, nearest_holiday
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, "model", "model.joblib")
 META_PATH = os.path.join(BASE_DIR, "model", "metadata.json")
+EXPERIMENTS_PATH = os.path.join(BASE_DIR, "model", "experiments.json")  # written by compare_models.py
 STATIC_DIR = os.path.join(BASE_DIR, "static")
 LOG_PATH = os.environ.get("PREDICTION_LOG", os.path.join(BASE_DIR, "logs", "predictions.jsonl"))
 
@@ -302,6 +304,16 @@ def historical_data():
         "rows": INSIGHTS["rows"],
         "by_days_to_holiday": INSIGHTS.get("by_days_to_holiday", {}),
     }
+
+
+@app.get("/experiments")
+def experiments():
+    """All training runs exported from MLflow by compare_models.py (mlflow.db is not deployed)."""
+    if not os.path.exists(EXPERIMENTS_PATH):
+        return JSONResponse({"detail": "run `python compare_models.py` to export the experiments"}, status_code=404)
+    with open(EXPERIMENTS_PATH) as f:
+        data = json.load(f)
+    return data | {"selected_metrics": META["metrics"], "selected_params": META.get("params", {})}
 
 
 @app.get("/airport-network")

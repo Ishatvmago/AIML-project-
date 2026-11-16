@@ -12,8 +12,9 @@ import PredictionForm from './components/PredictionForm'
 import HistoricalAnalysis from './components/HistoricalAnalysis'
 import AirportNetwork from './components/AirportNetwork'
 import Dashboard from './components/Dashboard'
+import ModelLab from './components/ModelLab'
 
-type Tab = 'dashboard' | 'predict' | 'history' | 'network'
+type Tab = 'dashboard' | 'predict' | 'history' | 'network' | 'lab'
 type Theme = 'light' | 'dark'
 
 function getPreferredTheme(): Theme {
@@ -30,6 +31,7 @@ const tabs: Array<{ id: Tab; label: string }> = [
   { id: 'predict', label: 'Prediction Studio' },
   { id: 'history', label: 'Delay Patterns' },
   { id: 'network', label: 'Route Network' },
+  { id: 'lab', label: 'Model Lab' },
 ]
 
 function buildHighlights(stats: StatsResponse | null) {
@@ -264,6 +266,7 @@ export default function App() {
           {activeTab === 'predict' && <PredictionForm theme={theme} />}
           {activeTab === 'history' && <HistoricalAnalysis />}
           {activeTab === 'network' && <AirportNetwork />}
+          {activeTab === 'lab' && <ModelLab />}
         </main>
 
         <footer className="ui-border mt-auto border-t px-1 py-6 text-sm">

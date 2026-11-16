@@ -152,3 +152,14 @@ def test_alternatives_are_safer_and_real():
 
 def test_alternatives_rejects_invalid_input():
     assert client.post("/alternatives", json={**VALID_FLIGHT, "dep_hour": 30}).status_code == 422
+
+
+# 11. Model Lab: every tracked run is exported and exactly one is marked as the served model
+def test_experiments_lists_runs_and_the_selected_model():
+    body = client.get("/experiments").json()
+    assert len(body["runs"]) >= 4
+    selected = [r for r in body["runs"] if r["selected"]]
+    assert len(selected) == 1
+    # the selected (served) model is the best run by ROC-AUC
+    assert selected[0]["roc_auc"] >= max(r["roc_auc"] for r in body["runs"]) - 1e-9
+    assert body["feature_importance"]

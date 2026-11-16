@@ -163,3 +163,28 @@ def test_experiments_lists_runs_and_the_selected_model():
     # the selected (served) model is the best run by ROC-AUC
     assert selected[0]["roc_auc"] >= max(r["roc_auc"] for r in body["runs"]) - 1e-9
     assert body["feature_importance"]
+
+
+# 12. Flight number lookup: different spellings work, unknown numbers give 404, nonsense gives 422
+def test_flight_number_lookup():
+    from app import FLIGHT_LOOKUP
+
+    code = next(iter(FLIGHT_LOOKUP))  # any flight number that exists in the 2024 data
+    spaced = f"{code[:2].lower()} {code[2:]}"
+    body = client.get(f"/flight/{spaced}").json()
+    assert body["code"] == code
+    leg = body["legs"][0]
+    assert leg["origin"] != leg["dest"] and 0 <= leg["dep_hour"] <= 23
+    # the leg can be sent straight to /predict
+    assert predict(airline=leg["airline"], origin=leg["origin"], dest=leg["dest"],
+                   dep_hour=leg["dep_hour"], distance=leg["distance"]).status_code == 200
+    assert client.get("/flight/ZZ9999").status_code == 404
+    assert client.get("/flight/hello").status_code == 422
+
+
+# 13. Real delay causes from the BTS data are returned with each prediction
+def test_prediction_includes_real_delay_causes():
+    causes = predict().json()["delay_causes"]
+    assert causes["delayed_flights"] > 0
+    assert abs(sum(causes["shares"].values()) - 1) < 0.01
+    assert set(causes["shares"]) == {"LateAircraftDelay", "CarrierDelay", "NASDelay", "WeatherDelay", "SecurityDelay"}

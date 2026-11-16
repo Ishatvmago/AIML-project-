@@ -29,6 +29,8 @@ import {
   type OptionsResponse,
   type PredictionResult,
   type AlternativeOption,
+  type FlightLeg,
+  type FlightLookupResponse,
   type AlternativesResponse,
   type Reason,
 } from '../lib/api'
@@ -53,6 +55,15 @@ const RISK_COLORS: Record<string, string> = {
 }
 
 const selectClass = 'w-full bg-slate-900 text-white rounded-xl p-3 border border-white/10'
+
+// official BTS delay cause codes, in plain words
+const CAUSE_INFO: Record<string, { label: string; detail: string; color: string }> = {
+  LateAircraftDelay: { label: 'Late-arriving aircraft', detail: 'the plane came in late from its previous flight', color: '#f97316' },
+  CarrierDelay: { label: 'Airline issues', detail: 'crew, maintenance, cleaning, baggage, fuelling', color: '#eab308' },
+  NASDelay: { label: 'Air traffic and airport', detail: 'air traffic control, congestion, normal bad weather', color: '#38bdf8' },
+  WeatherDelay: { label: 'Extreme weather', detail: 'storms, snow, hurricanes', color: '#a78bfa' },
+  SecurityDelay: { label: 'Security', detail: 'security screening, evacuations', color: '#94a3b8' },
+}
 
 function formatHour(hour: number) {
   return `${String(hour).padStart(2, '0')}:00`
@@ -88,6 +99,10 @@ export default function PredictionForm({ theme }: PredictionFormProps) {
   const [alternatives, setAlternatives] = useState<AlternativesResponse | null>(null)
   const [findingAlternatives, setFindingAlternatives] = useState(false)
   const [alternativesFailed, setAlternativesFailed] = useState(false)
+  const [flightCode, setFlightCode] = useState('')
+  const [lookup, setLookup] = useState<FlightLookupResponse | null>(null)
+  const [lookupError, setLookupError] = useState('')
+  const [lookingUp, setLookingUp] = useState(false)
   const [loading, setLoading] = useState(false)
   const [explaining, setExplaining] = useState(false)
   const [error, setError] = useState('')
@@ -164,6 +179,32 @@ export default function PredictionForm({ theme }: PredictionFormProps) {
     }
   }
 
+  // flight number -> the route and usual departure hour it flew in 2024 (BTS schedule, no live API)
+  const applyLeg = (leg: FlightLeg) => {
+    setResult(null)
+    setExplanation(null)
+    setAlternatives(null)
+    setError('')
+    setForm((prev) => ({ ...prev, airline: leg.airline, origin: leg.origin, dest: leg.dest, dep_hour: leg.dep_hour }))
+  }
+
+  const handleLookup = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!flightCode.trim()) return
+    setLookingUp(true)
+    setLookupError('')
+    setLookup(null)
+    try {
+      const found = await getJSON<FlightLookupResponse>(`/flight/${encodeURIComponent(flightCode.trim())}`)
+      setLookup(found)
+      applyLeg(found.legs[0])
+    } catch (err) {
+      setLookupError((err as Error).message)
+    } finally {
+      setLookingUp(false)
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     await runPrediction(payload)
@@ -231,6 +272,57 @@ export default function PredictionForm({ theme }: PredictionFormProps) {
             <PlaneTakeoff className="h-6 w-6" />
           </div>
         </div>
+
+        <form onSubmit={handleLookup} className="surface-panel mb-5 p-4">
+          <label htmlFor="flight-code" className="mb-3 block text-sm font-medium">
+            Know your flight number?
+          </label>
+          <div className="flex gap-2">
+            <input
+              id="flight-code"
+              value={flightCode}
+              onChange={(e) => setFlightCode(e.target.value)}
+              placeholder="e.g. DL 1234 or AA 2421"
+              className={selectClass}
+              autoComplete="off"
+            />
+            <button type="submit" disabled={lookingUp || !flightCode.trim()} className="primary-button shrink-0">
+              {lookingUp ? 'Finding...' : 'Find'}
+            </button>
+          </div>
+          {lookupError && <p className="mt-2 text-sm text-amber-600 dark:text-amber-400">{lookupError}</p>}
+          {lookup && (
+            <div className="mt-3 space-y-2 text-sm">
+              <p>
+                <span className="font-semibold">{lookup.airline_name} {lookup.code.slice(2)}</span>
+                <span className="subtle-text">
+                  {lookup.legs.length > 1 ? ` flew ${lookup.legs.length} routes in 2024. Pick yours:` : ' found. The form below is filled in.'}
+                </span>
+              </p>
+              {lookup.legs.length > 1 && (
+                <div className="flex flex-wrap gap-2">
+                  {lookup.legs.map((leg) => {
+                    const active = form.origin === leg.origin && form.dest === leg.dest
+                    return (
+                      <button
+                        key={`${leg.origin}-${leg.dest}`}
+                        type="button"
+                        onClick={() => applyLeg(leg)}
+                        className={`rounded-full border px-3 py-1 text-xs ${active ? 'border-cyan-500 bg-cyan-500/15 font-semibold' : 'border-gray-300 dark:border-white/15'}`}
+                      >
+                        {leg.origin} → {leg.dest} · {formatHour(leg.dep_hour)}
+                      </button>
+                    )
+                  })}
+                </div>
+              )}
+              <p className="subtle-text text-xs">
+                From the 2024 schedule (BTS). Airlines sometimes change a flight's route or time, so check your
+                ticket, then pick the date and generate the forecast.
+              </p>
+            </div>
+          )}
+        </form>
 
         <form onSubmit={handleSubmit} className="grid gap-5 lg:grid-cols-2">
           <div className="surface-panel p-4 lg:col-span-2">
@@ -479,6 +571,44 @@ export default function PredictionForm({ theme }: PredictionFormProps) {
                   )}
                 </ul>
               </div>
+
+              {result.delay_causes && (
+                <div className="surface-panel p-5">
+                  <h3 className="text-base font-semibold">What actually caused delays here in 2024</h3>
+                  <p className="subtle-text mt-1 text-sm">
+                    Official BTS delay causes for {result.delay_causes.label}, share of delay minutes across{' '}
+                    {result.delay_causes.delayed_flights.toLocaleString()} delayed flights.
+                  </p>
+                  <div className="mt-4 flex h-3 overflow-hidden rounded-full">
+                    {Object.entries(result.delay_causes.shares)
+                      .sort((a, b) => b[1] - a[1])
+                      .map(([cause, share]) => (
+                        <div
+                          key={cause}
+                          title={`${CAUSE_INFO[cause]?.label ?? cause}: ${pct(share)}`}
+                          style={{ width: `${share * 100}%`, background: CAUSE_INFO[cause]?.color ?? '#94a3b8' }}
+                        />
+                      ))}
+                  </div>
+                  <ul className="mt-4 space-y-2">
+                    {Object.entries(result.delay_causes.shares)
+                      .sort((a, b) => b[1] - a[1])
+                      .filter(([, share]) => share >= 0.005)
+                      .map(([cause, share]) => (
+                        <li key={cause} className="flex items-start justify-between gap-3 text-sm">
+                          <span className="flex items-start gap-2">
+                            <span className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: CAUSE_INFO[cause]?.color }} />
+                            <span>
+                              <span className="font-medium">{CAUSE_INFO[cause]?.label ?? cause}</span>
+                              <span className="subtle-text"> · {CAUSE_INFO[cause]?.detail}</span>
+                            </span>
+                          </span>
+                          <span className="font-semibold">{pct(share)}</span>
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+              )}
 
               <div className="surface-panel p-5">
                 <h3 className="flex items-center gap-2 text-base font-semibold">

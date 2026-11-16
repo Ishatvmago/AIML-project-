@@ -24,6 +24,7 @@ export const AIRPORTS: AirportRecord[] = [
   { code: 'LGA', name: 'LaGuardia', city: 'New York', state: 'NY', lat: 40.7769, lon: -73.874 },
   { code: 'MCO', name: 'Orlando International', city: 'Orlando', state: 'FL', lat: 28.4312, lon: -81.3081 },
   { code: 'MIA', name: 'Miami International', city: 'Miami', state: 'FL', lat: 25.7959, lon: -80.287 },
+  { code: 'IAH', name: 'George Bush Intercontinental', city: 'Houston', state: 'TX', lat: 29.9902, lon: -95.3368 },
   { code: 'MSP', name: 'Minneapolis-Saint Paul International', city: 'Minneapolis', state: 'MN', lat: 44.8848, lon: -93.2223 },
   { code: 'ORD', name: "O'Hare International", city: 'Chicago', state: 'IL', lat: 41.9742, lon: -87.9073 },
   { code: 'PHX', name: 'Phoenix Sky Harbor International', city: 'Phoenix', state: 'AZ', lat: 33.4352, lon: -112.0101 },

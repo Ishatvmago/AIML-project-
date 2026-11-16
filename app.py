@@ -17,6 +17,7 @@ Routes:
                            falling back to a template when no LLM is available
     POST /alternatives     safer options for the same trip: another time, airline or date
     GET  /experiments      every MLflow training run + feature importance (Model Lab tab)
+    GET  /flight/{code}    route and usual departure hour of a flight number in 2024
 """
 
 import json
@@ -37,6 +38,8 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, "model", "model.joblib")
 META_PATH = os.path.join(BASE_DIR, "model", "metadata.json")
 EXPERIMENTS_PATH = os.path.join(BASE_DIR, "model", "experiments.json")  # written by compare_models.py
+FLIGHT_LOOKUP_PATH = os.path.join(BASE_DIR, "model", "flight_lookup.json")  # build_flight_lookup.py
+DELAY_CAUSES_PATH = os.path.join(BASE_DIR, "model", "delay_causes.json")    # build_flight_lookup.py
 STATIC_DIR = os.path.join(BASE_DIR, "static")
 LOG_PATH = os.environ.get("PREDICTION_LOG", os.path.join(BASE_DIR, "logs", "predictions.jsonl"))
 
@@ -66,6 +69,14 @@ with open(META_PATH) as f:
     META = json.load(f)
 FEATURES = META["features"]
 INSIGHTS = META["insights"]
+FLIGHT_LOOKUP = {}
+if os.path.exists(FLIGHT_LOOKUP_PATH):
+    with open(FLIGHT_LOOKUP_PATH) as f:
+        FLIGHT_LOOKUP = json.load(f)
+DELAY_CAUSES = {}
+if os.path.exists(DELAY_CAUSES_PATH):
+    with open(DELAY_CAUSES_PATH) as f:
+        DELAY_CAUSES = json.load(f)
 
 
 class FlightInput(BaseModel):
@@ -194,6 +205,22 @@ def tips_for(flight, prob):
     return tips[:3]
 
 
+def delay_causes(flight):
+    """
+    What actually caused delays in 2024 (official BTS cause codes, share of delay minutes):
+    for this route if it had enough delayed flights, otherwise for the departure airport.
+    """
+    if not DELAY_CAUSES:
+        return None
+    route = DELAY_CAUSES["by_route"].get(f"{flight['origin']}-{flight['dest']}")
+    if route:
+        return {"scope": "route", "label": f"{flight['origin']} to {flight['dest']}", **route}
+    origin = DELAY_CAUSES["by_origin"].get(flight["origin"])
+    if origin:
+        return {"scope": "origin", "label": f"all flights from {flight['origin']}", **origin}
+    return {"scope": "overall", "label": "all flights", **DELAY_CAUSES["overall"]}
+
+
 def risk_level(prob):
     return "High" if prob >= 0.6 else "Medium" if prob >= 0.4 else "Low"
 
@@ -316,6 +343,25 @@ def experiments():
     return data | {"selected_metrics": META["metrics"], "selected_params": META.get("params", {})}
 
 
+@app.get("/flight/{code}")
+def flight_lookup(code: str):
+    """
+    Flight number -> where and when it flew in 2024 (e.g. "DL 1234", "dl1234").
+    A schedule lookup from the BTS data, not live status: no external flight API is used.
+    """
+    clean = "".join(ch for ch in code.upper() if ch.isalnum())
+    if not (3 <= len(clean) <= 6 and clean[:2].isalnum() and clean[2:].isdigit()):
+        return JSONResponse({"detail": "Enter a flight number like DL 1234: a 2-character airline code and 1-4 digits."},
+                            status_code=422)
+    clean = clean[:2] + str(int(clean[2:]))  # "DL0123" -> "DL123", as BTS stores it
+    legs = FLIGHT_LOOKUP.get(clean)
+    if not legs:
+        return JSONResponse({"detail": f"{clean[:2]} {clean[2:]} did not fly between the 20 airports this app covers "
+                                       "in 2024. Choose the airline and airports by hand instead."}, status_code=404)
+    return {"code": clean, "airline": clean[:2], "airline_name": AIRLINE_NAMES.get(clean[:2], clean[:2]),
+            "legs": legs, "source": "BTS 2024 schedule"}
+
+
 @app.get("/airport-network")
 def airport_network():
     return {"airports": INSIGHTS["by_origin"], "connections": INSIGHTS["top_routes"]}
@@ -334,6 +380,7 @@ def predict(flight: FlightInput):
         "reasons": reasons,
         "tips": tips_for(data, prob),
         "date_info": date_info(data),
+        "delay_causes": delay_causes(data),
     }
 
 

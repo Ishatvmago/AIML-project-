@@ -57,6 +57,12 @@ export interface PredictionResult {
   risk_level: 'Low' | 'Medium' | 'High'
   reasons: Reason[]
   tips: string[]
+  delay_causes: {
+    scope: 'route' | 'origin' | 'overall'
+    label: string
+    delayed_flights: number
+    shares: Record<string, number>
+  } | null
   date_info: {
     weekday: string
     month: string
@@ -113,6 +119,23 @@ export interface StatsResponse {
   by_hour: Record<string, GroupStat>
   predictions_served: number
   llm: { available: boolean; model: string }
+}
+
+export interface FlightLeg {
+  airline: string
+  origin: string
+  dest: string
+  dep_hour: number
+  distance: number
+  flights_2024: number
+}
+
+export interface FlightLookupResponse {
+  code: string
+  airline: string
+  airline_name: string
+  legs: FlightLeg[]
+  source: string
 }
 
 export interface ExperimentRun {

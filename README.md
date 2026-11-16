@@ -19,9 +19,9 @@ CSL236 end-term project · Ishatv Mago (24csu082)
 | Data | 6.97 million real US flights (BTS, all of 2024); 120,000 used for training and testing |
 | Best model | Gradient Boosting, ROC-AUC **0.715** on 24,000 test flights, 5-fold CV **0.716 ± 0.003** |
 | Experiments | 13 MLflow runs, 6 algorithms, 2 feature sets, all shown in the app's **Model Lab** tab |
-| For travellers | delay risk, the reasons behind it, data-based tips, **safer options** (time, airline, date), links to check real flights |
+| For travellers | **look up by flight number**, delay risk, the reasons behind it, the **real 2024 delay causes** for the route, data-based tips, **safer options** (time, airline, date), links to check real flights |
 | Generative AI | Llama 3.2 runs locally through Ollama to explain each prediction; no external API or key |
-| Quality | 23 tests, Docker image with health check, GitHub Actions CI, drift monitoring |
+| Quality | 25 tests, Docker image with health check, GitHub Actions CI, drift monitoring |
 
 <p>
   <img src="reports/figures/fig1_architecture.png" alt="System architecture" width="360">
@@ -34,8 +34,8 @@ CSL236 end-term project · Ishatv Mago (24csu082)
 | 1. Environment | Python 3.11 venv, pinned dependencies | `requirements.txt`, `requirements-serve.txt` |
 | 2. Experiment tracking | MLflow (SQLite), 13 runs, 6 algorithms, 2 feature sets, tuning, 5-fold CV | `train.py`, `mlflow.db`, `compare_models.py` |
 | 3. Model artifact | MLflow Model Registry (`flight-delay-model`, alias `production`); pipeline saved once, loaded once at API startup | `model/model.joblib`, `model/metadata.json` |
-| 4. API + UI | FastAPI `/health`, `/predict`, `/explain`, `/alternatives`, `/experiments`; React UI served at `/` | `app.py`, `static/`, `frontend/` |
-| 5. Tests | 23 pytest cases: health, UI, domain logic, date features, 422 boundaries, fallback, logging | `tests/test_app.py` |
+| 4. API + UI | FastAPI `/health`, `/predict`, `/explain`, `/alternatives`, `/experiments`, `/flight/{number}`; React UI served at `/` | `app.py`, `static/`, `frontend/` |
+| 5. Tests | 25 pytest cases: health, UI, domain logic, date features, 422 boundaries, fallback, logging | `tests/test_app.py` |
 | 6. Container | `python:3.11-slim`, serve-only requirements, health check | `Dockerfile` |
 | 7. CI | GitHub Actions: install → train baseline → pytest → Docker build + smoke test | `.github/workflows/ci.yml` |
 | 8. Deploy + monitoring | Render free tier, every prediction logged, drift check | `logs/predictions.jsonl`, `drift_check.py` |
@@ -162,6 +162,13 @@ line with published schedule-only delay models.
 **Explanations:** for each prediction the API replaces one input at a time with its most typical
 training value and measures how much the probability changes (occlusion / perturbation importance).
 
+**Flight number lookup and real delay causes:** `build_flight_lookup.py` reads the raw 2024 BTS files
+(cached in `data/raw/` by `download_data.py`) and writes two small files that ship with the app:
+`model/flight_lookup.json` (12,888 flight numbers between the 20 airports, with their route and usual
+departure hour; `GET /flight/DL1234`) and `model/delay_causes.json` (official BTS delay causes per route:
+late-arriving aircraft, airline, air traffic and airport, extreme weather, security). Every prediction
+returns the cause breakdown for its route. Both are a 2024 schedule and history, not live status.
+
 **Safer alternatives:** `/alternatives` takes the same flight and asks the model about small
 changes: a departure time within 3 hours, the safest time of the day, another airline that really
 flew this route in 2024, and dates up to 3 days earlier or later. All variations are scored in one
@@ -223,12 +230,13 @@ npm run build     # writes the production UI into ../static
 pytest -v
 ```
 
-23 tests: health check, UI loads, prediction shape, two domain-logic checks (evening riskier than
+25 tests: health check, UI loads, prediction shape, two domain-logic checks (evening riskier than
 early morning; July riskier than October), date features (2026-11-25 is a Wednesday, 1 day from
 Thanksgiving), nine invalid-input 422 cases, same-airport 422, missing
 field 422, lower-case codes accepted, LLM template fallback, prediction logging, safer alternatives (each suggestion is safer than
 the original, airlines only from the route's real carriers, invalid input rejected), and the Model Lab
-export (exactly one run marked as the served model, and it is the best by ROC-AUC).
+export (exactly one run marked as the served model, and it is the best by ROC-AUC), the flight-number
+lookup (spellings, 404, 422) and the real delay causes returned with each prediction.
 
 ## 5. Docker
 
@@ -270,7 +278,8 @@ python drift_check.py
 ├── download_data.py       builds data/flights.csv from BTS
 ├── features.py            date features shared by training and the API
 ├── drift_check.py         compares live inputs with training data
-├── compare_models.py      chart + table comparing all MLflow runs (reports/)
+├── compare_models.py      chart + table comparing all MLflow runs (reports/, model/experiments.json)
+├── build_flight_lookup.py flight-number lookup + delay causes from the raw BTS files
 ├── data/flights.csv       120,000 real flights (all of 2024)
 ├── model/                 model.joblib + metadata.json (metrics, allowed values, statistics)
 ├── static/                built React UI (served at /)

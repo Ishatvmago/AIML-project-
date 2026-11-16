@@ -128,3 +128,15 @@ export const MONTHS = [
 ]
 
 export const pct = (x: number, digits = 0) => `${(x * 100).toFixed(digits)}%`
+
+/**
+ * Links that open a public flight search for the same route and date in a new tab.
+ * Only a link: nothing is fetched from these sites and no API or key is used.
+ */
+export function flightSearchLinks(f: { origin: string; dest: string; flight_date: string }, airlineName?: string) {
+  const query = `${airlineName ? `${airlineName} ` : ''}flights from ${f.origin} to ${f.dest} on ${f.flight_date} one way`
+  return {
+    google: `https://www.google.com/travel/flights?q=${encodeURIComponent(query)}`,
+    kayak: `https://www.kayak.com/flights/${f.origin}-${f.dest}/${f.flight_date}`,
+  }
+}

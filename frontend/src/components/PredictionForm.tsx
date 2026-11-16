@@ -6,6 +6,7 @@ import {
   ArrowDownRight,
   ArrowUpRight,
   CalendarDays,
+  ExternalLink,
   Clock,
   Lightbulb,
   MapPin,
@@ -19,6 +20,7 @@ import { AIRPORTS, AIRPORTS_BY_CODE, haversineMiles } from '../data/airports'
 import {
   DAYS,
   MONTHS,
+  flightSearchLinks,
   getJSON,
   pct,
   postJSON,
@@ -407,6 +409,25 @@ export default function PredictionForm({ theme }: PredictionFormProps) {
                     >
                       {result.risk_level} risk · model says “{result.prediction}”
                     </span>
+                    <div className="mt-4 flex flex-wrap items-center gap-2 text-sm">
+                      <span className="text-cyan-100/80">Check real flights:</span>
+                      <a
+                        href={flightSearchLinks(form, airlineNames[form.airline]).google}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 font-medium text-white transition hover:bg-white/25"
+                      >
+                        Google Flights <ExternalLink className="h-3.5 w-3.5" />
+                      </a>
+                      <a
+                        href={flightSearchLinks(form).kayak}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 font-medium text-white transition hover:bg-white/25"
+                      >
+                        Kayak <ExternalLink className="h-3.5 w-3.5" />
+                      </a>
+                    </div>
                   </div>
                   <div className="mx-auto h-32 w-32">
                     <CircularProgressbar
@@ -501,16 +522,26 @@ export default function PredictionForm({ theme }: PredictionFormProps) {
                             </p>
                           </div>
                         </div>
-                        <button type="button" onClick={() => applyOption(o)} className="secondary-button text-sm">
-                          Use this
-                        </button>
+                        <div className="flex items-center gap-2">
+                          <a
+                            href={flightSearchLinks(o.flight, o.kind === 'airline' ? airlineNames[o.flight.airline] : undefined).google}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-sm font-medium text-cyan-600 hover:underline dark:text-cyan-300"
+                          >
+                            Search <ExternalLink className="h-3.5 w-3.5" />
+                          </a>
+                          <button type="button" onClick={() => applyOption(o)} className="secondary-button text-sm">
+                            Use this
+                          </button>
+                        </div>
                       </li>
                     ))}
                   </ul>
                 )}
                 <p className="subtle-text mt-3 text-xs leading-5">
-                  Scored by the same trained model. Airlines shown flew this route in 2024; check that the
-                  flight exists when you book.
+                  Scored by the same trained model. Airlines shown flew this route in 2024; use Search to
+                  check that the flight exists before you book.
                 </p>
               </div>
 

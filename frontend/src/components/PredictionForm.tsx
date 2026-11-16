@@ -85,6 +85,7 @@ export default function PredictionForm({ theme }: PredictionFormProps) {
   const [explanation, setExplanation] = useState<ExplainResult | null>(null)
   const [alternatives, setAlternatives] = useState<AlternativesResponse | null>(null)
   const [findingAlternatives, setFindingAlternatives] = useState(false)
+  const [alternativesFailed, setAlternativesFailed] = useState(false)
   const [loading, setLoading] = useState(false)
   const [explaining, setExplaining] = useState(false)
   const [error, setError] = useState('')
@@ -150,10 +151,12 @@ export default function PredictionForm({ theme }: PredictionFormProps) {
     }
     // safer options for the same trip, scored by the same model (after the main result is shown)
     setFindingAlternatives(true)
+    setAlternativesFailed(false)
     try {
       setAlternatives(await postJSON<AlternativesResponse>('/alternatives', input))
     } catch {
       setAlternatives(null)
+      setAlternativesFailed(true)
     } finally {
       setFindingAlternatives(false)
     }
@@ -474,6 +477,11 @@ export default function PredictionForm({ theme }: PredictionFormProps) {
                   <ShieldCheck className="h-4 w-4 text-emerald-500" /> Safer options for this trip
                 </h3>
                 {findingAlternatives && <p className="subtle-text mt-3 text-sm">Checking other times, airlines and dates...</p>}
+                {!findingAlternatives && alternativesFailed && (
+                  <p className="mt-3 text-sm text-amber-600 dark:text-amber-400">
+                    Safer options could not be loaded. If you just updated the project, restart the API server.
+                  </p>
+                )}
                 {!findingAlternatives && alternatives && alternatives.options.length === 0 && (
                   <p className="subtle-text mt-3 text-sm leading-6">
                     No clearly safer time, airline or nearby date for this route: this flight is already one of

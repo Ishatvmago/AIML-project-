@@ -10,12 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ENABLE_LLM: "0"   # no Ollama on GitHub runners; the app uses its template fallback
+      # a fresh MLflow store for CI: the committed mlflow.db points its artifacts at a local folder
+      MLFLOW_TRACKING_URI: sqlite:///ci-mlflow.db
     steps:
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python 3.11
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
           cache: pip
@@ -33,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Build Docker image
         run: docker build -t flight-delay-api .

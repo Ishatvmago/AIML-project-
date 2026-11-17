@@ -162,7 +162,7 @@ export default function Dashboard() {
             {data.training_rows.toLocaleString()} real flights from the US Bureau of Transportation
             Statistics (all 12 months of 2024). It uses the airline, route, month, day, departure
             hour and distance to estimate the probability that a flight arrives 15+ minutes late.
-            Nine runs with three algorithms, two feature sets and hyperparameter tuning were compared in MLflow; this model had the best ROC-AUC and recall and is registered as the production model.
+            Thirteen runs with six algorithms, two feature sets, hyperparameter tuning and 5-fold cross-validation were compared in MLflow; this model had the best ROC-AUC and is registered as the production model.
           </p>
           <div className="mt-5 grid grid-cols-2 gap-3 text-sm sm:grid-cols-5">
             {Object.entries(data.metrics).map(([name, value]) => (
